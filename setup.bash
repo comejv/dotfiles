@@ -21,3 +21,16 @@ echo 'kitty.desktop' >~/.config/xdg-terminals.list
 # Install Btop++
 apt install btop
 sed -i "s|Exec=btop|Exec=kitty --single-instance btop|g" ~/.local/share/applications/btop.desktop
+
+# Install JetBrainsMono Nerd Font
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip -o JetBrainsMono.zip
+mkdir JBM
+unzip -d JBM JetBrainsMono.zip
+pushd JBM
+mkdir JetBrainsMono
+cp JetBrainsMonoNerdFont-* JetBrainsMono
+mv JetBrainsMono /usr/share/fonts/
+fc-cache -f
+popd
+rmdir JBM
+rm JetBrainsMono.zip
