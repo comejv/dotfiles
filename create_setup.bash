@@ -3,6 +3,11 @@
 # Quit on error
 set -e
 
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit
+fi
+
 # Install nvim latest from prebuilt binary
 curl -LO https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
