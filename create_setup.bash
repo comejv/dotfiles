@@ -126,4 +126,6 @@ install_btop
 install_font
 install_tlp
 
+echo -e "${CYAN}Now install fzf binaries here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
+
 echo -e "${GREEN}Installation complete!${RESET}"
