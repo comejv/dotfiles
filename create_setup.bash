@@ -8,6 +8,13 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
+# Update system
+apt update && apt upgrade
+
+# Add APT backports sources
+echo "deb https://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware" >>/etc/apt/sources.list
+echo "You may need to install linux-image-amd64 from backports for hardware compatibility."
+
 # Install nvim latest from prebuilt binary
 curl -LO https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
@@ -39,3 +46,7 @@ fc-cache -f
 popd
 rmdir JBM
 rm JetBrainsMono.zip
+
+# Install TLP
+apt install -t bookworm-backports tlp tlp-rdw smartmontools
+echo "You can enable battery health tweaks in /etc/tlp.conf"
