@@ -94,6 +94,16 @@ install_btop() {
     fi
 }
 
+install_discord() {
+    if ! command -v discord &>/dev/null; then
+        echo -e "${CYAN}Installing Discord...${RESET}"
+        run_cmd curl -L 'https://discord.com/api/download?platform=linux&format=deb' --output discord.deb
+        run_cm dpkg --install discord.deb
+    else
+        echo -e "${GREEN}Discord is already installed. Skipping.${RESET}"
+    fi
+}
+
 # Install JetBrainsMono Nerd Font
 install_font() {
     echo -e "${CYAN}Installing JetBrainsMono Nerd Font...${RESET}"
@@ -123,9 +133,10 @@ add_backports
 install_nvim
 install_kitty
 install_btop
+install_discord
 install_font
 install_tlp
 
-echo -e "${CYAN}Now install fzf binaries here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
+echo -e "${CYAN}Now install fzf binaries from here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
 
 echo -e "${GREEN}Installation complete!${RESET}"
