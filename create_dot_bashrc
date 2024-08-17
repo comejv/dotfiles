@@ -115,3 +115,6 @@ eval "$(fzf --bash)"
 
 # Set up default editor
 export EDITOR="nvim"
+
+# Local binaries
+export PATH="$PATH:/home/comev/.local/bin"
