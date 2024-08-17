@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Quit on error
-set -e
-
 # Define color variables
 GREEN="\e[32m"
 YELLOW="\e[33m"
@@ -57,9 +54,14 @@ update_system() {
 
 # Add APT backports sources
 add_backports() {
-    echo -e "${CYAN}Adding APT backports sources...${RESET}"
-    echo "deb https://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware" >>/etc/apt/sources.list
-    echo -e "${YELLOW}You may need to install linux-image-amd64 from backports for hardware compatibility.${RESET}"
+    read -p "Do you want to add APT backports sources? (y/n): " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Adding APT backports sources...${RESET}"
+        echo "deb https://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware" >>/etc/apt/sources.list
+        echo -e "${YELLOW}You may need to install linux-image-amd64 from backports for hardware compatibility.${RESET}"
+    else
+        echo -e "${GREEN}APT backports sources not added.${RESET}"
+    fi
 }
 
 # Install Neovim
@@ -74,13 +76,13 @@ install_nvim() {
 install_kitty() {
     echo -e "${CYAN}Installing Kitty terminal...${RESET}"
     run_cmd curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-    run_cmd cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-    run_cmd ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten /usr/local/bin/
+    run_cmd cp $sudo_user_home/.local/kitty.app/share/applications/kitty.desktop $sudo_user_home/.local/share/applications/
+    run_cmd ln -sf $sudo_user_home/.local/kitty.app/bin/kitty $sudo_user_home/.local/kitty.app/bin/kitten /usr/local/bin/
     local icon_path
-    icon_path=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png
-    run_cmd sed -i "s|Icon=kitty|Icon=$icon_path|g" ~/.local/share/applications/kitty*.desktop
-    run_cmd sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-    echo 'kitty.desktop' >~/.config/xdg-terminals.list
+    icon_path=$sudo_user_home/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png
+    run_cmd sed -i "s|Icon=kitty|Icon=$icon_path|g" $sudo_user_home/.local/share/applications/kitty*.desktop
+    run_cmd sed -i "s|Exec=kitty|Exec=$sudo_user_home/.local/kitty.app/bin/kitty|g" $sudo_user_home/.local/share/applications/kitty*.desktop
+    echo 'kitty.desktop' >$sudo_user_home/.config/xdg-terminals.list
 }
 
 # Install Btop++
@@ -88,7 +90,7 @@ install_btop() {
     if ! command -v btop &>/dev/null; then
         echo -e "${CYAN}Installing Btop++...${RESET}"
         run_cmd apt install -y btop
-        run_cmd sed -i "s|Exec=btop|Exec=kitty --single-instance btop|g" ~/.local/share/applications/btop.desktop
+        run_cmd sed -i "s|Exec=btop|Exec=kitty --single-instance btop|g" $sudo_user_home/.local/share/applications/btop.desktop
     else
         echo -e "${GREEN}Btop++ is already installed. Skipping.${RESET}"
     fi
@@ -98,7 +100,7 @@ install_discord() {
     if ! command -v discord &>/dev/null; then
         echo -e "${CYAN}Installing Discord...${RESET}"
         run_cmd curl -L 'https://discord.com/api/download?platform=linux&format=deb' --output discord.deb
-        run_cm dpkg --install discord.deb
+        run_cmd dpkg --install discord.deb
     else
         echo -e "${GREEN}Discord is already installed. Skipping.${RESET}"
     fi
@@ -126,6 +128,9 @@ install_tlp() {
         echo -e "${YELLOW}Skipping TLP installation.${RESET}"
     fi
 }
+
+# Get usr home
+sudo_user_home=$(getent passwd "$SUDO_USER" | cut -d: -f6 | grep home | head -n 1)
 
 # Run the installation steps
 update_system
