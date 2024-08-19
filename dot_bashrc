@@ -120,4 +120,5 @@ export EDITOR="nvim"
 alias icat='kitten icat'
 
 # Most config
+export PAGER="most"
 export MOST_INITFILE="$HOME/.config/most/keys.rc"
