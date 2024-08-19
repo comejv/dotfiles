@@ -129,6 +129,15 @@ install_tlp() {
     fi
 }
 
+install_keyd() {
+    run_cmd git clone https://github.com/rvaiya/keyd
+    run_cmd pushd keyd
+    run_cmd make && sudo make install
+    run_cmd systemctl enable keyd && sudo systemctl start keyd
+    run_cmd popd
+    run_cmd rm -r keyd
+}
+
 # Get usr home
 sudo_user_home=$(getent passwd "$SUDO_USER" | cut -d: -f6 | grep home | head -n 1)
 
@@ -141,6 +150,7 @@ install_btop
 install_discord
 install_font
 install_tlp
+install_keyd
 
 echo -e "${CYAN}Now install fzf binaries from here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
 

@@ -2527,9 +2527,3 @@ font_size 15.0
 #: }}}
 
 #: }}}
-
-
-# BEGIN_KITTY_THEME
-# Adwaita dark
-include current-theme.conf
-# END_KITTY_THEME
