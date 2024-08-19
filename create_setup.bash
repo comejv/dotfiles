@@ -133,6 +133,7 @@ install_keyd() {
     run_cmd git clone https://github.com/rvaiya/keyd
     run_cmd pushd keyd
     run_cmd make && sudo make install
+    run_cmd cp $sudo_user_home/.config/keyd/default.conf /etc/keyd/default.conf
     run_cmd systemctl enable keyd && sudo systemctl start keyd
     run_cmd popd
     run_cmd rm -r keyd
