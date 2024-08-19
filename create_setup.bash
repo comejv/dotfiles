@@ -130,6 +130,7 @@ install_tlp() {
 }
 
 install_keyd() {
+    echo -e "${CYAN}Installing Keyd...${RESET}"
     run_cmd git clone https://github.com/rvaiya/keyd
     run_cmd pushd keyd
     run_cmd make && sudo make install
@@ -137,6 +138,11 @@ install_keyd() {
     run_cmd systemctl enable keyd && sudo systemctl start keyd
     run_cmd popd
     run_cmd rm -r keyd
+}
+
+install_most() {
+    echo -e "${CYAN}Installing most...${RESET}"
+    run_cmd apt install most
 }
 
 # Get usr home
@@ -152,6 +158,7 @@ install_discord
 install_font
 install_tlp
 install_keyd
+install_most
 
 echo -e "${CYAN}Now install fzf binaries from here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
 
