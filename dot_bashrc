@@ -118,3 +118,6 @@ export EDITOR="nvim"
 
 # Alias to show images in terminal
 alias icat='kitten icat'
+
+# Most config
+export MOST_INITFILE="~/.config/most/keys.rc"
