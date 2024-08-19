@@ -3,3 +3,7 @@
 	name = Côme VINCENT
 [pull]
 	rebase = false
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
