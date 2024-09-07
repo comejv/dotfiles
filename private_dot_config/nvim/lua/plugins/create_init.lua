@@ -46,7 +46,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = { "BufNewFile", "BufReadPost" },
-    opts = { mode = "topline" },
+    opts = { mode = "topline", max_lines = 5 },
   },
   {
     "numToStr/Comment.nvim",
