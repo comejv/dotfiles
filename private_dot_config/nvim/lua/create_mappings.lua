@@ -16,3 +16,5 @@ map("n", "<leader>v", function()
 end, { desc = "Terminal New vertical window" })
 
 map("n", "<leader>e", vim.diagnostic.open_float)
+
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
