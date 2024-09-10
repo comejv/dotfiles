@@ -1,10 +1,5 @@
 return {
   {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    opts = require "configs.conform",
-  },
-  {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
