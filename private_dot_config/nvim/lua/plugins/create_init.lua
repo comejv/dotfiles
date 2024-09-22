@@ -48,4 +48,8 @@ return {
     opts = {},
     event = { "BufNewFile", "BufReadPost" },
   },
+  {
+    "luk400/vim-jukit",
+    ft = "json",
+  },
 }
