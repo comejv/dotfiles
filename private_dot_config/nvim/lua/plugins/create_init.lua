@@ -1,15 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "clangd",
-        "clang-format",
-      },
-      automatic_installation = true,
-    },
+    automatic_installation = true,
   },
   {
     "max397574/better-escape.nvim",
@@ -47,9 +39,5 @@ return {
     "numToStr/Comment.nvim",
     opts = {},
     event = { "BufNewFile", "BufReadPost" },
-  },
-  {
-    "luk400/vim-jukit",
-    ft = "json",
   },
 }
