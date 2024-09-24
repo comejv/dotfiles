@@ -4,11 +4,6 @@ Host git
 	IdentityFile /home/comev/.ssh/id_ed25519
 	IdentitiesOnly yes
 
-Host alpaca
-    HostName ec2-15-188-59-123.eu-west-3.compute.amazonaws.com
-    User admin
-    IdentityFile /home/comev/.ssh/alpaca.pem
-
 Host *.p
     HostName %holytechnique.fr
     User come.vincent
