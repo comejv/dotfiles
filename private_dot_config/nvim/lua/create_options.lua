@@ -9,3 +9,4 @@ o.shiftwidth = 4
 
 local opt = vim.opt
 opt.list = true
+
