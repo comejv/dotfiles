@@ -8,7 +8,6 @@ endif
 " Keywords
 syn keyword lustreKeyword node var let tel function returns const
 syn keyword lustreType type
-syn keyword lustreBoolean xor or and not
 
 " Types
 syn keyword lustreType bool int real
@@ -31,6 +30,8 @@ syn match lustreBooleanOperator "\vxor"
 syn match lustreBooleanOperator "\vor"
 syn match lustreBooleanOperator "\vand"
 syn match lustreBooleanOperator "\vnot"
+syn match lustreBoolean "\vfalse"
+syn match lustreBoolean "\vtrue"
 
 " Function calls
 syn region lustreFunction start="\v\w+\(" end=")" contains=lustreType,lustreNumber
@@ -60,3 +61,5 @@ hi def link lustreComment Comment
 hi def link lustreIdentifier Identifier
 
 hi lustreComment ctermfg=grey guifg=#808080
+hi lustreBoolean ctermfg=magenta guifg=#FF00FF
+hi lustreBooleanOperator ctermfg=yellow guifg=#FFA500
