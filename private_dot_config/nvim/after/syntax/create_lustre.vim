@@ -6,8 +6,9 @@ if exists("b:current_syntax")
 endif
 
 " Keywords
-syn keyword lustreKeyword node var let tel function returns const
+syn keyword lustreKeyword node var let tel function returns const when
 syn keyword lustreType type
+syn keyword lustreFlowControl if then else for while
 
 " Types
 syn keyword lustreType bool int real
@@ -61,5 +62,6 @@ hi def link lustreComment Comment
 hi def link lustreIdentifier Identifier
 
 hi lustreComment ctermfg=grey guifg=#808080
+hi lustreFlowControl ctermfg=magenta guifg=#FF00FF
 hi lustreBoolean ctermfg=magenta guifg=#FF00FF
 hi lustreBooleanOperator ctermfg=yellow guifg=#FFA500
