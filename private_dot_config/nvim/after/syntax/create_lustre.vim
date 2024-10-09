@@ -8,7 +8,7 @@ endif
 " Keywords
 syn keyword lustreKeyword node var let tel function returns const when
 syn keyword lustreType type
-syn keyword lustreFlowControl if then else for while
+syn keyword lustreFlowControl if then else for while assert
 
 " Types
 syn keyword lustreType bool int real
@@ -35,7 +35,7 @@ syn match lustreBoolean "\vfalse"
 syn match lustreBoolean "\vtrue"
 
 " Function calls
-syn region lustreFunction start="\v\w+\(" end=")" contains=lustreType,lustreNumber
+syn region lustreFunction start="\v\w+\(" end=")" contains=lustreType,lustreNumber,lustreBoolean,lustreBooleanOperator,lustreKeyword
 
 " Numbers
 syn match lustreNumber "\v\d\+"

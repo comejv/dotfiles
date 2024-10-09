@@ -13,7 +13,9 @@ M.base46 = {
   -- },
 }
 
--- Remove the existing autocommand for .lus files
 vim.cmd("autocmd BufNewFile,BufRead *.lus set filetype=lustre")
+vim.cmd("autocmd BufNewFile,BufRead *.ys set filetype=y86")
+vim.cmd("autocmd BufNewFile,BufRead *.hcl set filetype=hcl")
+
 
 return M
