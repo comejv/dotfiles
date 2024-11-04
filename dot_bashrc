@@ -116,9 +116,6 @@ eval "$(fzf --bash)"
 # Set up default editor
 export EDITOR="nvim"
 
-# Alias to show images in terminal
-alias icat='kitten icat'
-
 # Most config
 export PAGER="most"
 export MOST_EDITOR="nvim"
