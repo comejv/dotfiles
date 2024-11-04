@@ -5,7 +5,7 @@
 syntax clear
 
 " Highlight Y86-64 instructions
-syntax keyword y86Instr addl subl andl xorl addq subq andq xorq
+syntax keyword y86Instr addl subl andl xorl addq subq andq xorq iaddq
 syntax keyword y86Instr rrmovl irmovl mrmovl rmmovl
 syntax keyword y86Instr rrmovq irmovq mrmovq rmmovq
 syntax keyword y86Instr jmp je jne jg jge jl jle
