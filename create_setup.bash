@@ -150,16 +150,14 @@ sudo_user_home=$(getent passwd "$SUDO_USER" | cut -d: -f6 | grep home | head -n 
 
 # Run the installation steps
 update_system
-add_backports
-install_nvim
+# add_backports
+# install_nvim
 install_kitty
-install_btop
-install_discord
-install_font
-install_tlp
-install_keyd
-install_most
-
-echo -e "${CYAN}Now install fzf binaries from here : https://github.com/junegunn/fzf/releases/tag/latest${RESET}"
+# install_btop
+# install_discord
+# install_font
+# install_tlp
+# install_keyd
+# install_most
 
 echo -e "${GREEN}Installation complete!${RESET}"
