@@ -6,11 +6,11 @@ alias gdb='gdb -tui'
 
 sshfs_x() {
     if [ $# -eq 0 ]; then
-        pc=france
+        pc=porsche
     else
         pc=$1
     fi
-    sudo sshfs -oallow_other $pc.p:/users/eleves-b/2024/come.vincent /mnt/X/ -F /home/comev/.ssh/config &
+    sudo sshfs -oallow_other $pc.p:/users/eleves-b/2024/come.vincent /mnt/X/ -F /home/comev/.ssh/config
 }
 alias xfs='sshfs_x'
 
