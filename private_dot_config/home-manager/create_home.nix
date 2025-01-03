@@ -29,6 +29,17 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    PAGER = "most";
+  };
+
+  home.file = {
+      ".config/chezmoi/chezmoi.toml" = {
+          text = ''[git]
+              autoCommit = true
+              autoPush = true
+              '';
+          executable = false;
+      };
   };
 
   programs.neovim.enable = true;
