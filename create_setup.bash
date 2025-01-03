@@ -64,25 +64,47 @@ add_backports() {
     fi
 }
 
+add_testing() {
+    read -p "Do you want to add APT testing sources? (y/n): " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Adding APT backports sources...${RESET}"
+        mkdir /etc/apt/sources.list.d/
+        echo "deb https://deb.debian.org/debian testing main" > /etc/apt/sources.list.d/testing.list
+    else
+        echo -e "${GREEN}APT testing sources not added.${RESET}"
+    fi
+}
+
 # Install Neovim
 install_nvim() {
-    echo -e "${CYAN}Installing Neovim...${RESET}"
-    run_cmd curl -LO https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz
-    run_cmd rm -rf /opt/nvim
-    run_cmd tar -C /opt -xzf nvim-linux64.tar.gz
+    read -p "Do you want to install nvim? (y/n): " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Installing Neovim...${RESET}"
+        run_cmd curl -LO https://github.com/neovim/neovim/releases/download/v0.10.3/nvim-linux64.tar.gz
+        run_cmd rm -rf /opt/nvim
+        run_cmd tar -C /opt -xzf nvim-linux64.tar.gz
+    else
+        echo -e "${GREEN}nvim not added.${RESET}"
+    fi
+
 }
 
 # Install Kitty terminal
 install_kitty() {
-    echo -e "${CYAN}Installing Kitty terminal...${RESET}"
-    run_cmd curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-    run_cmd cp $sudo_user_home/.local/kitty.app/share/applications/kitty.desktop $sudo_user_home/.local/share/applications/
-    run_cmd ln -sf $sudo_user_home/.local/kitty.app/bin/kitty $sudo_user_home/.local/kitty.app/bin/kitten /usr/local/bin/
-    local icon_path
-    icon_path=$sudo_user_home/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png
-    run_cmd sed -i "s|Icon=kitty|Icon=$icon_path|g" $sudo_user_home/.local/share/applications/kitty*.desktop
-    run_cmd sed -i "s|Exec=kitty|Exec=$sudo_user_home/.local/kitty.app/bin/kitty|g" $sudo_user_home/.local/share/applications/kitty*.desktop
-    echo 'kitty.desktop' >$sudo_user_home/.config/xdg-terminals.list
+    read -p "Do you want to install kitty? (y/n): " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Installing Kitty terminal...${RESET}"
+        run_cmd curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+        run_cmd cp $sudo_user_home/.local/kitty.app/share/applications/kitty.desktop $sudo_user_home/.local/share/applications/
+        run_cmd ln -sf $sudo_user_home/.local/kitty.app/bin/kitty $sudo_user_home/.local/kitty.app/bin/kitten /usr/local/bin/
+        local icon_path
+        icon_path=$sudo_user_home/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png
+        run_cmd sed -i "s|Icon=kitty|Icon=$icon_path|g" $sudo_user_home/.local/share/applications/kitty*.desktop
+        run_cmd sed -i "s|Exec=kitty|Exec=$sudo_user_home/.local/kitty.app/bin/kitty|g" $sudo_user_home/.local/share/applications/kitty*.desktop
+        echo 'kitty.desktop' >$sudo_user_home/.config/xdg-terminals.list
+    else
+        echo -e "${GREEN}APT testing sources not added.${RESET}"
+    fi
 }
 
 # Install Btop++
@@ -123,21 +145,28 @@ install_tlp() {
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         echo -e "${CYAN}Installing TLP...${RESET}"
         run_cmd apt install -t bookworm-backports -y tlp tlp-rdw smartmontools
-        echo -e "${YELLOW}You can enable battery health tweaks in /etc/tlp.conf${RESET}"
+        run_cmd cp ${sudo_user_home}/.config/tlp/tlp.conf /etc/
+        run_cmd tlp start
     else
         echo -e "${YELLOW}Skipping TLP installation.${RESET}"
     fi
 }
 
 install_keyd() {
-    echo -e "${CYAN}Installing Keyd...${RESET}"
-    run_cmd git clone https://github.com/rvaiya/keyd
-    run_cmd pushd keyd
-    run_cmd make && sudo make install
-    run_cmd cp $sudo_user_home/.config/keyd/default.conf /etc/keyd/default.conf
-    run_cmd systemctl enable keyd && sudo systemctl start keyd
-    run_cmd popd
-    run_cmd rm -r keyd
+    read -p "Do you want to install keyd? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Installing Keyd...${RESET}"
+        run_cmd git clone https://github.com/rvaiya/keyd
+        run_cmd pushd keyd
+        run_cmd make && sudo make install
+        run_cmd cp $sudo_user_home/.config/keyd/default.conf /etc/keyd/default.conf
+        run_cmd systemctl enable keyd && sudo systemctl start keyd
+        run_cmd popd
+        run_cmd rm -r keyd
+    else
+        echo -e "${YELLOW}Skipping keyd installation.${RESET}"
+    fi
 }
 
 install_most() {
@@ -146,8 +175,18 @@ install_most() {
 }
 
 install_dnscrypt() {
-    echo -e "${CYAN}Installing most...${RESET}"
-    run_cmd apt install 
+    read -p "Do you want to install dnscrypt? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${CYAN}Installing dnscrypt...${RESET}"
+        run_cmd apt install resolvconf
+        run_cmd apt install -t testing dnscrypt-proxy
+        run_cmd cp ${sudo_user_home}/.config/dnscrypt-proxy/dnscrypt-proxy.toml /etc/dnscrypt-proxy/
+        run_cmd dnscrypt-proxy service enable
+        run_cmd dnscrypt-proxy service start
+    else
+        echo -e "${YELLOW}Skipping dnscrypt installation.${RESET}"
+    fi
 }
 
 # Get usr home
@@ -162,7 +201,8 @@ install_kitty
 # install_discord
 # install_font
 # install_tlp
-# install_keyd
+install_keyd
 # install_most
+install_dnscrypt
 
 echo -e "${GREEN}Installation complete!${RESET}"
