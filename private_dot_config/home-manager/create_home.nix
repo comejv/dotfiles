@@ -26,6 +26,7 @@
     ripgrep
     nixfmt-rfc-style
     nix-your-shell
+    fd
   ];
 
   home.sessionVariables = {
@@ -73,5 +74,14 @@
       { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
       { name = "pure"; src = pkgs.fishPlugins.pure.src; }
     ];
+    functions = {
+        multicd = "echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
+    };
+    shellAbbrs = {
+        dotdot = {
+            regex = ''^\.\.+$'';
+            function = ''multicd'';
+        };
+    };
   };
 }
