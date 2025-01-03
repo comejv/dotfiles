@@ -17,7 +17,6 @@
   home.packages = with pkgs; [
     chezmoi
     wl-clipboard
-    tlp
     fzf
     most
     btop
