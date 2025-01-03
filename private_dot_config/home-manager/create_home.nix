@@ -22,13 +22,13 @@
     btop
     discord
     nerd-fonts.jetbrains-mono
-    git
     gcc
     gnumake
+    ripgrep
+    nixfmt-rfc-style
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
     PAGER = "most";
   };
 
@@ -42,7 +42,13 @@
       };
   };
 
-  programs.neovim.enable = true;
+  programs.git.enable = true;
+
+  programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+  };
 
   programs.fish = {
     enable = true;
