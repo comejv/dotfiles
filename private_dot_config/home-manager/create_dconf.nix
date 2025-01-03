@@ -5,6 +5,11 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/baobab/ui" = {
+      is-maximized = false;
+      window-size = mkTuple [ 960 600 ];
+    };
+
     "org/gnome/control-center" = {
       last-panel = "keyboard";
       window-state = mkTuple [ 1103 835 false ];
@@ -35,11 +40,20 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      show-battery-percentage = true;
       text-scaling-factor = 1.25;
     };
 
     "org/gnome/desktop/notifications" = {
       application-children = [ "org-gnome-software" "org-gnome-nautilus" ];
+    };
+
+    "org/gnome/desktop/notifications/application/discord" = {
+      application-id = "discord.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/firefox-esr" = {
+      application-id = "firefox-esr.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
@@ -52,7 +66,7 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;
-      speed = 0.35159817351598166;
+      speed = 0.351598;
       tap-to-click = true;
       two-finger-scrolling-enabled = true;
     };
@@ -70,6 +84,15 @@ with lib.hm.gvariant;
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/file-roller/dialogs/extract" = {
+      recreate-folders = true;
+      skip-newer = false;
+    };
+
+    "org/gnome/file-roller/listing" = {
+      show-path = false;
     };
 
     "org/gnome/nautilus/preferences" = {
@@ -94,6 +117,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell" = {
       enabled-extensions = [ "gestureImprovements@gestures" ];
+      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox-esr.desktop" "libreoffice-writer.desktop" ];
       welcome-dialog-last-shown-version = "43.9";
     };
 
@@ -102,7 +126,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/software" = {
-      check-timestamp = mkInt64 1735853202;
+      check-timestamp = mkInt64 1735927326;
       first-run = false;
       update-notification-timestamp = mkInt64 1735853210;
     };
@@ -114,6 +138,25 @@ with lib.hm.gvariant;
     "org/gtk/gtk4/settings/file-chooser" = {
       show-hidden = false;
       sort-directories-first = false;
+    };
+
+    "org/gtk/settings/file-chooser" = {
+      date-format = "regular";
+      location-mode = "path-bar";
+      show-hidden = false;
+      show-size-column = true;
+      show-type-column = true;
+      sidebar-width = 233;
+      sort-column = "name";
+      sort-directories-first = false;
+      sort-order = "ascending";
+      type-format = "category";
+      window-position = mkTuple [ 26 23 ];
+      window-size = mkTuple [ 1863 1113 ];
+    };
+
+    "system/proxy" = {
+      mode = "none";
     };
 
   };
