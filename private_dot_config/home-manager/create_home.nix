@@ -67,9 +67,7 @@
       set fish_greeting # Disable greeting
       if command -q nix-your-shell
         nix-your-shell fish | source
-      end
-      set pure_enable_nixdevshell true
-      set pure_symbol_nixdevshell_prefix 󱄅 '';
+      end'';
     plugins = [
       { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
       { name = "pure"; src = pkgs.fishPlugins.pure.src; }
