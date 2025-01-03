@@ -25,6 +25,7 @@
     nerd-fonts.jetbrains-mono
     git
     gcc
+    gnumake
   ];
 
   home.sessionVariables = {
