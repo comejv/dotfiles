@@ -8,30 +8,28 @@
 
   targets.genericLinux.enable = true;
 
+  programs.home-manager.enable = true;
+
   imports = [
     ./dconf.nix
   ];
 
   home.packages = with pkgs; [
     chezmoi
-	wl-clipboard
-	tlp
-	keyd
+    wl-clipboard
+    tlp
     fzf
     most
     btop
     discord
-	nerd-fonts.jetbrains-mono
-	git
-	gcc
+    nerd-fonts.jetbrains-mono
+    git
+    gcc
   ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   programs.neovim.enable = true;
 
