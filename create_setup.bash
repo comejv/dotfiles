@@ -145,6 +145,11 @@ install_most() {
     run_cmd apt install most
 }
 
+install_dnscrypt() {
+    echo -e "${CYAN}Installing most...${RESET}"
+    run_cmd apt install 
+}
+
 # Get usr home
 sudo_user_home=$(getent passwd "$SUDO_USER" | cut -d: -f6 | grep home | head -n 1)
 
