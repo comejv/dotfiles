@@ -19,20 +19,6 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 960 600 ];
     };
 
-    "org/gnome/clocks" = {
-      world-clocks = [ {
-        location = mkVariant [ (mkUint32 2) (mkVariant [ "Troy" "KVLL" true [ (mkTuple [ 0.7425115490450083 (-1.451726090592904) ]) ] [ (mkTuple [ 0.7436078078014783 (-1.4512400513028085) ]) ] ]) ];
-      } {
-        location = mkVariant [ (mkUint32 2) (mkVariant [ "Paris" "LFPB" true [ (mkTuple [ 0.8546295628776541 4.276056667386108e-2 ]) ] [ (mkTuple [ 0.8528842336256599 4.0724343395436846e-2 ]) ] ]) ];
-      } ];
-    };
-
-    "org/gnome/clocks/state/window" = {
-      maximized = false;
-      panel-id = "world";
-      size = mkTuple [ 870 690 ];
-    };
-
     "org/gnome/control-center" = {
       last-panel = "wifi";
       window-state = mkTuple [ 1103 835 false ];
@@ -170,7 +156,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [ (mkVariant [ (mkUint32 2) (mkVariant [ "Troy" "KVLL" true [ (mkTuple [ 0.7425115490450083 (-1.451726090592904) ]) ] [ (mkTuple [ 0.7436078078014783 (-1.4512400513028085) ]) ] ]) ]) (mkVariant [ (mkUint32 2) (mkVariant [ "Paris" "LFPB" true [ (mkTuple [ 0.8546295628776541 4.276056667386108e-2 ]) ] [ (mkTuple [ 0.8528842336256599 4.0724343395436846e-2 ]) ] ]) ]) ];
+      locations = [];
     };
 
     "org/gnome/software" = {
