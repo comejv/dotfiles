@@ -16,20 +16,47 @@ with lib.hm.gvariant;
 
     "org/gnome/baobab/ui" = {
       is-maximized = false;
-      window-size = mkTuple [ 960 600 ];
+      window-size = mkTuple [
+        960
+        600
+      ];
     };
 
     "org/gnome/control-center" = {
       last-panel = "wifi";
-      window-state = mkTuple [ 1103 835 false ];
+      window-state = mkTuple [
+        1103
+        835
+        false
+      ];
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "Utilities" "YaST" ];
+      folder-children = [
+        "Utilities"
+        "YaST"
+      ];
     };
 
     "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = [ "gnome-abrt.desktop" "gnome-system-log.desktop" "nm-connection-editor.desktop" "org.gnome.baobab.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.Dictionary.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.eog.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.fonts.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.gnome.Usage.desktop" "vinagre.desktop" ];
+      apps = [
+        "gnome-abrt.desktop"
+        "gnome-system-log.desktop"
+        "nm-connection-editor.desktop"
+        "org.gnome.baobab.desktop"
+        "org.gnome.Connections.desktop"
+        "org.gnome.DejaDup.desktop"
+        "org.gnome.Dictionary.desktop"
+        "org.gnome.DiskUtility.desktop"
+        "org.gnome.eog.desktop"
+        "org.gnome.Evince.desktop"
+        "org.gnome.FileRoller.desktop"
+        "org.gnome.fonts.desktop"
+        "org.gnome.seahorse.Application.desktop"
+        "org.gnome.tweaks.desktop"
+        "org.gnome.Usage.desktop"
+        "vinagre.desktop"
+      ];
       categories = [ "X-GNOME-Utilities" ];
       name = "X-GNOME-Utilities.directory";
       translate = true;
@@ -47,8 +74,13 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/input-sources" = {
       current = mkUint32 0;
-      sources = [ (mkTuple [ "xkb" "fr+oss" ]) ];
-      xkb-options = [];
+      sources = [
+        (mkTuple [
+          "xkb"
+          "fr+oss"
+        ])
+      ];
+      xkb-options = [ ];
     };
 
     "org/gnome/desktop/interface" = {
@@ -61,7 +93,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-software" "org-gnome-nautilus" "org-gnome-settings" "gnome-network-panel" ];
+      application-children = [
+        "org-gnome-software"
+        "org-gnome-nautilus"
+        "org-gnome-settings"
+        "gnome-network-panel"
+      ];
     };
 
     "org/gnome/desktop/notifications/application/discord" = {
@@ -100,8 +137,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      switch-applications = [];
-      switch-applications-backward = [];
+      switch-applications = [ ];
+      switch-applications-backward = [ ];
       switch-windows = [ "<Alt>Tab" ];
       switch-windows-backward = [ "<Shift><Alt>Tab" ];
     };
@@ -126,7 +163,10 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/nautilus/window-state" = {
-      initial-size = mkTuple [ 890 550 ];
+      initial-size = mkTuple [
+        890
+        550
+      ];
     };
 
     "org/gnome/nm-applet/eap/7ab52d8e-a29b-4f62-a927-58a59f606092" = {
@@ -135,7 +175,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -145,18 +187,25 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
-      enabled-extensions = [ "gestureImprovements@gestures" "clipboard-indicator@tudmotu.com" ];
-      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox-esr.desktop" "libreoffice-writer.desktop" ];
+      enabled-extensions = [
+        "gestureImprovements@gestures"
+        "clipboard-indicator@tudmotu.com"
+      ];
+      favorite-apps = [
+        "org.gnome.Nautilus.desktop"
+        "firefox-esr.desktop"
+        "libreoffice-writer.desktop"
+      ];
       welcome-dialog-last-shown-version = "43.9";
     };
 
     "org/gnome/shell/weather" = {
       automatic-location = true;
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/software" = {
@@ -180,7 +229,10 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-size = mkTuple [ 1069 374 ];
+      window-size = mkTuple [
+        1069
+        374
+      ];
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -194,8 +246,14 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 26 23 ];
-      window-size = mkTuple [ 1863 1113 ];
+      window-position = mkTuple [
+        26
+        23
+      ];
+      window-size = mkTuple [
+        1863
+        1113
+      ];
     };
 
     "system/proxy" = {
