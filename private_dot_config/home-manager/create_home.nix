@@ -25,8 +25,9 @@
     gnumake
     ripgrep
     nixfmt-rfc-style
-    nix-your-shell
+    # nix-your-shell
     fd
+    python312Packages.python-lsp-server
   ];
 
   home.sessionVariables = {
@@ -61,6 +62,16 @@
       enableFishIntegration = true;
   };
 
+  home.shellAliases = {
+      py = "python3";
+      ll = "ls -l";
+      la = "ls -a";
+      l = "ls -CF";
+      gdb = "gdb -tui";
+      xfs = "sshfs_x";
+      icat = "kitten icat";
+  };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -74,6 +85,14 @@
     ];
     functions = {
         multicd = "echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
+        sshfs_x = ''
+          if test (count $argv) -gt 0
+              set pc $argv[1]
+          else
+              set pc porsche
+          end
+          sudo sshfs -oallow_other "$pc.p:/users/eleves-b/2024/come.vincent" /mnt/X/ -F /home/comev/.ssh/config
+        '';
     };
     shellAbbrs = {
         dotdot = {
