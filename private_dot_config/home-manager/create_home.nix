@@ -25,7 +25,7 @@
     gnumake
     ripgrep
     nixfmt-rfc-style
-    # nix-your-shell
+    nix-your-shell
     fd
     python312Packages.python-lsp-server
   ];
