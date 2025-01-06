@@ -8,13 +8,13 @@
     most
     btop
     fd
+    fzf
     ripgrep
 
     # Comm
     discord
 
     # SE
-    nerd-fonts.jetbrains-mono
     gcc
     gnumake
 
