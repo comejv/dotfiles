@@ -2,7 +2,6 @@
 
 {
   programs.kitty = {
-    package = pkgs.emptyDirectory;
     enable = true;
     font = {
       package = pkgs.nerd-fonts.jetbrains-mono;

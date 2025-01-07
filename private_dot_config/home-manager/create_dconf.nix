@@ -23,7 +23,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "wifi";
+      last-panel = "keyboard";
       window-state = mkTuple [
         1103
         835
@@ -113,6 +113,10 @@ with lib.hm.gvariant;
       application-id = "gnome-network-panel.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/kitty" = {
+      application-id = "kitty.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
       application-id = "org.gnome.Nautilus.desktop";
     };
@@ -182,7 +186,7 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Control><Alt>t";
-      command = "kitty";
+      command = "nixGL kitty";
       name = "kitty";
     };
 
@@ -199,12 +203,12 @@ with lib.hm.gvariant;
       welcome-dialog-last-shown-version = "43.9";
     };
 
-    "org/gnome/shell/weather" = {
-      automatic-location = true;
-      locations = [ ];
+    "org/gnome/shell/extensions/clipboard-indicator" = {
+      toggle-menu = [ "<Control><Alt>v" ];
     };
 
-    "org/gnome/shell/world-clocks" = {
+    "org/gnome/shell/weather" = {
+      automatic-location = true;
       locations = [ ];
     };
 
