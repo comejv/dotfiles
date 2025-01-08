@@ -13,9 +13,17 @@ M.base46 = {
   -- },
 }
 
-vim.cmd("autocmd BufNewFile,BufRead *.lus set filetype=lustre")
-vim.cmd("autocmd BufNewFile,BufRead *.ys set filetype=y86")
-vim.cmd("autocmd BufNewFile,BufRead *.hcl set filetype=hcl")
-
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    vim.api.nvim_create_autocmd("BufWritePost", {
+      pattern = "*.tex",
+      callback = function()
+        vim.fn.system "latexmk"
+        vim.fn.system "xdg-open build/main.pdf"
+      end,
+    })
+  end,
+})
 
 return M

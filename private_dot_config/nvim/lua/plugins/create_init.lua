@@ -1,9 +1,5 @@
 return {
   {
-    "williamboman/mason.nvim",
-    automatic_installation = true,
-  },
-  {
     "max397574/better-escape.nvim",
     config = function()
       require("better_escape").setup()
@@ -19,15 +15,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "c",
-        "bash",
-        "markdown",
-        "printf",
-        "python",
-      },
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,

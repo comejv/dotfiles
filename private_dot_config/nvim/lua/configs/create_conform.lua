@@ -6,6 +6,9 @@ local options = {
     c = { "clang-format" },
     sh = { "shfmt" },
     bash = { "shfmt" },
+    ocaml = { "ocaml-format" },
+    nix = { "nixfmt-rfc-style" },
+    latex = { "tex-fmt" },
   },
 
   format_on_save = {
