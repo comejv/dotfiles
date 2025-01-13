@@ -20,7 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
       pattern = "*.tex",
       callback = function()
         vim.fn.system "latexmk"
-        vim.fn.system "xdg-open build/main.pdf"
       end,
     })
   end,

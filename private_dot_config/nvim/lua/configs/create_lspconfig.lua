@@ -1,19 +1,36 @@
 local lspconfig = require "lspconfig"
 
-lspconfig.clangd.setup {}
+-- Helper function to check if an LSP server executable is available
+local function is_executable(name)
+  return vim.fn.executable(name) == 1
+end
 
-lspconfig.pylsp.setup {}
+-- Check and set up `clangd`
+if is_executable("clangd") then
+  lspconfig.clangd.setup {}
+end
 
-lspconfig.cmake.setup {}
+-- Check and set up `pylsp`
+if is_executable("pylsp") then
+  lspconfig.pylsp.setup {}
+end
 
-lspconfig.texlab.setup {}
+-- Check and set up `cmake`
+if is_executable("cmake-language-server") then
+  lspconfig.cmake.setup {}
+end
 
--- Check if `ocamllsp` is available in the environment
-local has_ocamllsp = vim.fn.executable "ocamllsp" == 1
+-- Check and set up `texlab`
+if is_executable("texlab") then
+  lspconfig.texlab.setup {}
+end
 
-if has_ocamllsp then
-  -- Set up ocamllsp only if it's available
+-- Check and set up `ocamllsp`
+if is_executable("ocamllsp") then
   lspconfig.ocamllsp.setup {}
 end
 
-lspconfig.nixd.setup {}
+-- Check and set up `nixd`
+if is_executable("nixd") then
+  lspconfig.nixd.setup {}
+end
