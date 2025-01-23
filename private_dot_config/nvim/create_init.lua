@@ -28,6 +28,13 @@ require("lazy").setup({
   { import = "plugins" },
 }, lazy_config)
 
+-- New filetypes
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.mly",
+  command = "set filetype=yacc",
+})
+
+-- Python integration (necessary for ocaml)
 local enable_providers = {
   "python3_provider",
 }
