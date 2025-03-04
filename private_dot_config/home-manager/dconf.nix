@@ -14,6 +14,10 @@ with lib.hm.gvariant;
       width = 600;
     };
 
+    "desktop/ibus/general" = {
+      version = "1.5.27";
+    };
+
     "org/gnome/baobab/ui" = {
       is-maximized = false;
       window-size = mkTuple [
@@ -98,6 +102,7 @@ with lib.hm.gvariant;
         "org-gnome-nautilus"
         "org-gnome-settings"
         "gnome-network-panel"
+        "vivaldi-stable"
       ];
     };
 
@@ -113,8 +118,16 @@ with lib.hm.gvariant;
       application-id = "gnome-network-panel.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/gnome-power-panel" = {
+      application-id = "gnome-power-panel.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/kitty" = {
       application-id = "kitty.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-evince" = {
+      application-id = "org.gnome.Evince.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
@@ -129,6 +142,10 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Software.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/vivaldi-stable" = {
+      application-id = "vivaldi-stable.desktop";
+    };
+
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;
       speed = 0.351598;
@@ -140,6 +157,15 @@ with lib.hm.gvariant;
       report-technical-problems = true;
     };
 
+    "org/gnome/desktop/session" = {
+      idle-delay = mkUint32 300;
+    };
+
+    "org/gnome/desktop/sound" = {
+      event-sounds = true;
+      theme-name = "__custom";
+    };
+
     "org/gnome/desktop/wm/keybindings" = {
       switch-applications = [ ];
       switch-applications-backward = [ ];
@@ -147,8 +173,50 @@ with lib.hm.gvariant;
       switch-windows-backward = [ "<Shift><Alt>Tab" ];
     };
 
+    "org/gnome/evince/default" = {
+      window-ratio = mkTuple [
+        1.3970588235294117
+        1.3775252525252526
+      ];
+    };
+
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/evolution" = {
+      version = "3.46.4";
+    };
+
+    "org/gnome/evolution/addressbook" = {
+      completion-minimum-query-length = 3;
+      completion-show-address = false;
+    };
+
+    "org/gnome/evolution/calendar" = {
+      use-24hour-format = true;
+      week-start-day-name = "monday";
+      work-day-friday = true;
+      work-day-monday = true;
+      work-day-saturday = false;
+      work-day-sunday = false;
+      work-day-thursday = true;
+      work-day-tuesday = true;
+      work-day-wednesday = true;
+    };
+
+    "org/gnome/evolution/mail" = {
+      browser-close-on-reply-policy = "ask";
+      composer-visually-wrap-long-lines = false;
+      forward-style-name = "attached";
+      image-loading-policy = "never";
+      reply-style-name = "quoted";
+    };
+
+    "org/gnome/evolution/mail/composer-window" = {
+      height = 500;
+      maximized = false;
+      width = 708;
     };
 
     "org/gnome/file-roller/dialogs/extract" = {
@@ -157,7 +225,17 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/file-roller/listing" = {
+      list-mode = "as-folder";
+      name-column-width = 250;
       show-path = false;
+      sort-method = "name";
+      sort-type = "ascending";
+    };
+
+    "org/gnome/file-roller/ui" = {
+      sidebar-width = 200;
+      window-height = 480;
+      window-width = 600;
     };
 
     "org/gnome/nautilus/preferences" = {
@@ -197,7 +275,7 @@ with lib.hm.gvariant;
       ];
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "firefox-esr.desktop"
+        "vivaldi-stable.desktop"
         "libreoffice-writer.desktop"
       ];
       welcome-dialog-last-shown-version = "43.9";
@@ -212,9 +290,15 @@ with lib.hm.gvariant;
       locations = [ ];
     };
 
+    "org/gnome/shell/world-clocks" = {
+      locations = [ ];
+    };
+
     "org/gnome/software" = {
       check-timestamp = mkInt64 1736166796;
       first-run = false;
+      install-timestamp = mkInt64 1739635216;
+      online-updates-timestamp = mkInt64 1739635186;
       update-notification-timestamp = mkInt64 1735853210;
     };
 
@@ -236,6 +320,16 @@ with lib.hm.gvariant;
       window-size = mkTuple [
         1069
         374
+      ];
+    };
+
+    "org/gtk/settings/color-chooser" = {
+      selected-color = mkTuple [
+        true
+        0.0
+        0.0
+        0.0
+        1.0
       ];
     };
 

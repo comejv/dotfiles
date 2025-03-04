@@ -36,5 +36,8 @@
         function = ''multicd'';
       };
     };
+    shellInitLast = ''
+        set -e LIBGL_DRIVERS_PATH LD_LIBRARY_PATH LIBVA_DRIVERS_PATH
+    '';
   };
 }

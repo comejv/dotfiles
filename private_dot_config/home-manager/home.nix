@@ -4,6 +4,9 @@
   home.username = "comev";
   home.homeDirectory = "/home/comev";
   home.stateVersion = "24.11";
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   targets.genericLinux.enable = true;
   programs.home-manager.enable = true;

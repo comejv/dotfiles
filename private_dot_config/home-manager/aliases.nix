@@ -10,5 +10,6 @@
     xfs = "sshfs_x";
     icat = "kitten icat";
     kitty = "nixGL kitty";
+    nv = "nvim";
   };
 }
