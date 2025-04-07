@@ -1,0 +1,88 @@
+;; Kanata configuration migrated from KMonad
+;; This is the Windows configuration specifically
+
+(defcfg
+  ;; For Windows, this is the recommended configuration
+  ;; For Windows using the hooks driver
+  windows-altgr cancel-lctl-press
+
+  ;; Enable processing of keys not in defsrc (necessary for layers)
+  process-unmapped-keys yes
+
+  ;; Helpful for tap-hold keys
+  concurrent-tap-hold yes
+)
+
+;; Define your keyboard layout in defsrc
+;; This matches your KMonad defsrc configuration
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prnt slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc ins  home pgup
+  tab  a    z    e    r    t    y    u    i    o    p    [    ]    ret  del  end  pgdn
+  caps q    s    d    f    g    h    j    k    l    m    '
+  lsft \    w    x    c    v    b    n    ,    .    /    rsft           up
+  lctl lmet lalt           spc            ralt rmet cmp  rctl      left down rght
+)
+
+;; Define variables for timing configurations
+(defvar
+  tap-timeout 150
+  hold-timeout 150
+)
+
+;; Define aliases for your tap-hold keys and layer toggles
+(defalias
+  ;; Left-hand home row mods
+  mq (tap-hold $tap-timeout $hold-timeout q lmet)
+  as (tap-hold $tap-timeout $hold-timeout s lalt)
+  cd (tap-hold $tap-timeout $hold-timeout d lctl)
+  sf (tap-hold $tap-timeout $hold-timeout f lsft)
+  
+  ;; Right-hand home row mods 
+  sj (tap-hold $tap-timeout $hold-timeout j rsft)
+  ck (tap-hold $tap-timeout $hold-timeout k rctl)
+  al (tap-hold $tap-timeout $hold-timeout l lalt)
+  mm (tap-hold $tap-timeout $hold-timeout m rmet)
+  
+  ;; Layer toggle - press for esc, hold for layer-raise
+  lyr (tap-hold $tap-timeout $hold-timeout esc (layer-toggle raise))
+
+  paro(unicode "(")
+  parf(unicode ")")
+  lt(unicode "<")
+  gt(unicode ">")
+  lbrc(unicode "[")
+  rbrc(unicode "]")
+)
+
+;; Define your base layer with home row mods
+(deflayer homerowmods
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prnt slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc ins  home pgup
+  tab  a    z    e    r    t    y    u    i    o    p    [    ]    ret  del  end  pgdn
+  @lyr @mq  @as  @cd  @sf  g    h    @sj  @ck  @al  @mm  '
+  lsft \    w    x    c    v    b    n    ,    .    /    rsft           up
+  lctl lmet lalt           spc            ralt rmet cmp  rctl      left down rght
+)
+
+;; Define your raise layer
+;; Using _ for transparent keys (same as base layer)
+;; Using XX for no operation
+(deflayer raise
+  _    _    _      _     _       _    _    _    _    _    _    _    _    _    _    _
+  _    S-1  S-2    S-3   S-4     S-5  S-6  S-7  S-8  S-9  S-0  _    _    _    _    _    _
+  _    RA-4 @paro  @parf RA-=    _    _    _    _    _    bspc _    _    _    _    _    _
+  _    @lt  RA-6   6     @gt     _    left down up   rght _    _
+  _    _    _      @lbrc  @rbrc  _    _    _    _    _    _    _              _
+  _    _    _                    _              _    _    _    _         _    _    _
+)
+
+;; Set the base layer to homerowmods
+(deflayer qwerty
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prnt slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc ins  home pgup
+  tab  a    z    e    r    t    y    u    i    o    p    [    ]    ret  del  end  pgdn
+  caps q    s    d    f    g    h    j    k    l    m    '
+  lsft \    w    x    c    v    b    n    ,    .    /    rsft           up
+  lctl lmet lalt           spc            ralt rmet cmp  rctl      left down rght
+)
