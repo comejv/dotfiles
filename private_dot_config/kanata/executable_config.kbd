@@ -1,0 +1,49 @@
+(defcfg
+  input (low-level-hook) output (send-event-sink 500 30)
+  ;; This option tells KMonad to let non-configured keys act normal
+  fallthrough true
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prnt slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc ins  home pgup
+  tab  a    z    e    r    t    y    u    i    o    p    lbrc rbrc ret  del  end  pgdn
+  caps q    s    d    f    g    h    j    k    l    m    '    ret
+  lsft 102d w    x    c    v    b    n    ,    .    /    rsft           up
+  lctl lmet lalt           spc            ralt rmet cmp  rctl      left down rght
+)
+
+;; Define the layers first
+(deflayer homerowmods
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prnt slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc ins  home pgup
+  tab  a    z    e    r    t    y    u    i    o    p    lbrc rbrc ret  del  end  pgdn
+  @layer_caps @met_q @alt_s @ctl_d @sft_f g    h    @sft_j @ctl_k @alt_l @met_m '    ret
+  lsft 102d w    x    c    v    b    n    ,    .    /    rsft           up
+  lctl lmet lalt           spc            ralt rmet cmp  rctl      left down rght
+)
+
+(deflayer layer-raise
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    S-1    S-2    S-3    S-4    S-5    S-6    S-7    S-8    S-9    S-0    _    _    _    _    _    _
+  _    (around ralt 4)    \(    \)    (around ralt =)    _    _    _    _    _    bspc _    _    _    _    _    _
+  _    <    (around ralt 6)    6    >    _    left    down    up    right    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _              _
+  _    _    _              _              _    _    _    _         _    _    _
+)
+
+(defalias
+  met_q (tap-hold 150 q lmet)
+  alt_s (tap-hold 150 s lalt)
+  ctl_d (tap-hold 150 d lctl)
+  sft_f (tap-hold 150 f lsft)
+  
+  ;; Right hand home row mods 
+  sft_j (tap-hold 150 j rsft)
+  ctl_k (tap-hold 150 k rctl)
+  alt_l (tap-hold 150 l lalt)
+  met_m (tap-hold 150 m rmet)
+  
+  ;; Layer toggle
+  layer_caps (tap-hold 150 esc (layer-toggle layer-raise))
+)
