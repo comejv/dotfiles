@@ -1,7 +1,5 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -18,3 +16,5 @@ end, { desc = "Terminal New vertical window" })
 map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
