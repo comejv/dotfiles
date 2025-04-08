@@ -71,7 +71,7 @@
 (deflayer raise
   _    _    _      _     _       _    _    _    _    _    _    _    _    _    _    _
   _    S-1  S-2    S-3   S-4     S-5  S-6  S-7  S-8  S-9  S-0  _    _    _    _    _    _
-  _    RA-4 @paro  @parf RA-=    _    _    _    _    _    bspc _    _    _    _    _    _
+  _    RA-4 @paro  @parf RA-=    _    _    pgdn pgup    _    bspc _    _    _    _    _    _
   _    @lt  RA-6   6     @gt     _    left down up   rght _    _
   _    _    _      @lbrc  @rbrc  _    _    _    _    _    _    _              _
   _    _    _                    _              _    _    _    _         _    _    _
