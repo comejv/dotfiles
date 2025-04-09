@@ -40,6 +40,8 @@ return {
       { "<leader>ga", "<cmd>Git add %<cr>", desc = "Git add current file" },
       { "<leader>gA", "<cmd>Git add .<cr>", desc = "Git add all files" },
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git commit" },
+      { "<leader>gd", "<cmd>Git diff %<cr>", desc = "Git diff current file" },
+      { "<leader>gD", "<cmd>Git diff<cr>", desc = "Git diff all files" },
     },
   },
 }
