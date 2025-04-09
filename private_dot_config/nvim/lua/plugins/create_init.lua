@@ -31,4 +31,15 @@ return {
     opts = {},
     event = { "BufNewFile", "BufReadPost" },
   },
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "Gstatus", "Gblame", "Gdiff", "Gcommit", "Gpush", "Gpull" },
+    keys = {
+      { "<leader>gs", "<cmd>Git<cr>", desc = "Git Status" },
+      { "<leader>gb", "<cmd>Git blame<cr>", desc = "Git Blame" },
+      { "<leader>ga", "<cmd>Git add %<cr>", desc = "Git add current file" },
+      { "<leader>gA", "<cmd>Git add .<cr>", desc = "Git add all files" },
+      { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git commit" },
+    },
+  },
 }
