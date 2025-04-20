@@ -8,6 +8,10 @@
       if command -q nix-your-shell
         nix-your-shell fish | source
       end
+      set -gx pure_enable_single_line_prompt true
+      set -gx pure_enable_nixdevshell true
+      set -gx pure_enable_virtualenv true
+      set fish_color_command blue
     '';
     plugins = [
       {
@@ -36,8 +40,8 @@
         function = ''multicd'';
       };
     };
-    shellInitLast = ''
-        set -e LIBGL_DRIVERS_PATH LD_LIBRARY_PATH LIBVA_DRIVERS_PATH
-    '';
+    # shellInitLast = ''
+    #     # set -e LIBGL_DRIVERS_PATH LD_LIBRARY_PATH LIBVA_DRIVERS_PATH
+    # '';
   };
 }
