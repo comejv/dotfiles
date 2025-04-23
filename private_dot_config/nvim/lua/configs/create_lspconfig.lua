@@ -10,6 +10,11 @@ if is_executable "clangd" then
   lspconfig.clangd.setup {}
 end
 
+-- Check and set up `cmake`
+if is_executable "cmake-language-server" then
+  lspconfig.cmake.setup {}
+end
+
 -- Check and set up `pylsp`
 if is_executable "pyright" then
   lspconfig.pyright.setup {}
