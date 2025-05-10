@@ -13,16 +13,4 @@ M.base46 = {
   -- },
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "tex",
-  callback = function()
-    vim.api.nvim_create_autocmd("BufWritePost", {
-      pattern = "*.tex",
-      callback = function()
-        vim.fn.system "latexmk"
-      end,
-    })
-  end,
-})
-
 return M

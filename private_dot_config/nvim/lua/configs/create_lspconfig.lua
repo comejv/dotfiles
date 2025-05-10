@@ -27,7 +27,15 @@ end
 
 -- Check and set up `texlab`
 if is_executable "texlab" then
-  lspconfig.texlab.setup {}
+  lspconfig.texlab.setup {
+  settings = {
+    texlab = {
+      build = {
+        onSave = true,
+      },
+    },
+  },
+}
 end
 
 -- Check and set up `ocamllsp`
