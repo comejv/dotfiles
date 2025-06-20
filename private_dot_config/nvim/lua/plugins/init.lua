@@ -47,9 +47,24 @@ return {
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {},
+  },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup {
+        keymaps = {
+          accept_suggestion = "<C-Right>",
+          clear_suggestion = "<C-Left>",
+          accept_word = "<C-S-Right>",
+        },
+        disable_keymaps = false,
+      }
+    end,
+    lazy = false,
+  
   },
 }
