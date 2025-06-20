@@ -65,6 +65,5 @@ return {
       }
     end,
     lazy = false,
-  
   },
 }
