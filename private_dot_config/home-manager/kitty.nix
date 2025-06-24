@@ -17,10 +17,10 @@
       include = "current-theme.conf";
     };
     keybindings = {
-      "ctrl+left" = "neighboring_window left";
-      "ctrl+right" = "neighboring_window right";
-      "ctrl+up" = "neighboring_window up";
-      "ctrl+down" = "neighboring_window down";
+      "ctrl+shift+left" = "neighboring_window left";
+      "ctrl+shift+right" = "neighboring_window right";
+      "ctrl+shift+up" = "neighboring_window up";
+      "ctrl+shift+down" = "neighboring_window down";
       "ctrl+alt+enter" = "launch --cwd=current";
     };
   };
