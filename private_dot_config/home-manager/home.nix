@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  home.username = "comev";
-  home.homeDirectory = "/home/comev";
+  home.username = "vincec4";
+  home.homeDirectory = "/home/vincec4";
   home.stateVersion = "24.11";
   nixpkgs.config = {
     allowUnfree = true;
@@ -12,7 +12,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./dconf.nix # nix-shell -p dconf2nix --command """dconf dump / | dconf2nix > dconf.nix && mv dconf.nix .config/home-manager/"""
+    #    ./dconf.nix # nix-shell -p dconf2nix --command """dconf dump / | dconf2nix > dconf.nix && mv dconf.nix .config/home-manager/"""
     ./packages.nix
     ./git.nix
     ./fish.nix
@@ -22,7 +22,6 @@
   ];
 
   home.sessionVariables = {
-    PAGER = "most";
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERMINAL = "kitty";
@@ -50,11 +49,19 @@
           originalDesktopFile = builtins.readFile "${pkgs.kitty}/share/applications/kitty.desktop";
         in
         builtins.replaceStrings
-          [ "Exec=kitty" "Icon=kitty" ]
-          [ "Exec=nixGL kitty" "Icon=${pkgs.kitty}share/icons/hicolor/256x256/apps/kitty.png" ]
+          [
+            "TryExec=kitty"
+            "Exec=kitty"
+          ]
+          [
+            ""
+            "Exec=nixGL kitty"
+          ]
           originalDesktopFile;
       force = true;
     };
+
+    # Example for btop.desktop
     ".local/share/applications/btop.desktop" = {
       text =
         let
@@ -66,6 +73,5 @@
           originalDesktopFile;
       force = true;
     };
-
   };
 }

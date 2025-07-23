@@ -6,7 +6,7 @@
     font = {
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono Nerd Font";
-      size = 16;
+      size = 13;
     };
     shellIntegration.enableFishIntegration = true;
     settings = {
@@ -21,7 +21,7 @@
       "ctrl+shift+right" = "neighboring_window right";
       "ctrl+shift+up" = "neighboring_window up";
       "ctrl+shift+down" = "neighboring_window down";
-      "ctrl+alt+enter" = "launch --cwd=current";
+      "ctrl+shift+h" = "launch --stdin-source=@screen_scrollback nvim";
     };
   };
 
