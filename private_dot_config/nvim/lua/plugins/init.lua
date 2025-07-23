@@ -32,6 +32,12 @@ return {
     event = { "BufNewFile", "BufReadPost" },
   },
   {
+    "stevearc/conform.nvim",
+    opts = require "configs.conform",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+  },
+  {
     "tpope/vim-fugitive",
     cmd = { "Git", "Gstatus", "Gblame", "Gdiff", "Gcommit", "Gpush", "Gpull" },
     keys = {
@@ -48,9 +54,35 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {},
+    ft = { "markdown" },
+    keys = {
+      {
+        "<leader>mr",
+        "<cmd>RenderMarkdown toggle<CR>",
+        mode = "n",
+        desc = "Render Markdown Toggle",
+      },
+      {
+        "<leader>me",
+        "<cmd>RenderMarkdown expand<CR>",
+        mode = "n",
+        desc = "Render Markdown expand",
+      },
+      {
+        "<leader>mc",
+        "<cmd>RenderMarkdown contract<CR>",
+        mode = "n",
+        desc = "Render Markdown contract",
+      },
+    },
+  },
+  {
+    "3rd/image.nvim",
+    ft = { "markdown" },
+    build = false,
+    opts = {
+      processor = "magick_cli",
+    },
   },
   {
     "supermaven-inc/supermaven-nvim",
@@ -59,7 +91,6 @@ return {
         keymaps = {
           accept_suggestion = "<C-Right>",
           clear_suggestion = "<C-Left>",
-          accept_word = "<C-S-Right>",
         },
         disable_keymaps = false,
       }

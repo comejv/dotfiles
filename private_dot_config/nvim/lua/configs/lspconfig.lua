@@ -16,8 +16,8 @@ if is_executable "cmake-language-server" then
 end
 
 -- Check and set up `pylsp`
-if is_executable "pyright" then
-  lspconfig.pyright.setup {}
+if is_executable "pylsp" then
+  lspconfig.pylsp.setup {}
 end
 
 -- Check and set up `cmake`
@@ -28,14 +28,14 @@ end
 -- Check and set up `texlab`
 if is_executable "texlab" then
   lspconfig.texlab.setup {
-  settings = {
-    texlab = {
-      build = {
-        onSave = true,
+    settings = {
+      texlab = {
+        build = {
+          onSave = true,
+        },
       },
     },
-  },
-}
+  }
 end
 
 -- Check and set up `ocamllsp`
@@ -72,3 +72,8 @@ if is_executable "lua-language-server" then
     },
   }
 end
+
+-- markdown
+require("render-markdown").setup {
+  completions = { lsp = { enabled = true } },
+}
