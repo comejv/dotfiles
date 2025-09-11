@@ -1,8 +1,17 @@
 { pkgs, ... }:
-
+let
+  nixgl-overlay = final: prev: {
+    nixgl = (
+      import (fetchTarball "https://github.com/nix-community/nixGL/archive/main.tar.gz") {
+        # Pass the final package set to the nixGL build
+        pkgs = final;
+      }
+    );
+  };
+in
 {
-  home.username = "vincec4";
-  home.homeDirectory = "/home/vincec4";
+  home.username = "comev";
+  home.homeDirectory = "/home/comev";
   home.stateVersion = "24.11";
   nixpkgs.config = {
     allowUnfree = true;
@@ -11,6 +20,7 @@
   targets.genericLinux.enable = true;
   programs.home-manager.enable = true;
 
+  nixpkgs.overlays = [ nixgl-overlay ];
   imports = [
     #    ./dconf.nix # nix-shell -p dconf2nix --command """dconf dump / | dconf2nix > dconf.nix && mv dconf.nix .config/home-manager/"""
     ./packages.nix
