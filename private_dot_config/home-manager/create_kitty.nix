@@ -38,5 +38,5 @@
       "ctrl+shift+h" = "launch --stdin-source=@screen_scrollback nvim";
     };
   };
-
+  home.packages = [ pkgs.kitty.terminfo ];
 }
