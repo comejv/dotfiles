@@ -1,0 +1,350 @@
+@import "frappe.css";
+
+/* Typography and global transitions */
+* {
+  font-family: "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome,
+    Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  margin: 0;
+  padding: 0;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 3px;
+  min-height: 0;
+  margin: 0.2em 0.3em 0.2em 0.3em;
+}
+
+/* The whole bar */
+#waybar {
+  background-color: transparent;
+  color: @text;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border-radius: 0px;
+  margin: 0px 0px;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Workspaces */
+#workspaces {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 3px 6px;
+}
+
+#workspaces button {
+  padding: 3px 5px;
+  margin: 3px 5px;
+  border-radius: 6px;
+  color: @text;
+  background-color: @crust;
+  transition: all 0.3s ease-in-out;
+  font-size: 13px;
+}
+
+#workspaces button.active {
+  color: @text;
+  background: @green;
+}
+
+#workspaces button:hover {
+  background: @surface0;
+}
+
+#workspaces button.urgent {
+  background-color: @red;
+}
+
+/* Window title */
+#window {
+  background-color: @crust;
+  font-size: 15px;
+  font-weight: 800;
+  color: @text;
+  border-radius: 14px;
+  padding: 3px 6px;
+  margin: 2px;
+  opacity: 1;
+}
+
+/* Common block styling */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#mode,
+#idle_inhibitor,
+#mpd,
+#bluetooth,
+#custom-hyprPicker,
+#custom-power-menu,
+#custom-spotify,
+#custom-weather,
+#custom-weather.severe,
+#custom-weather.sunnyDay,
+#custom-weather.clearNight,
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight,
+#custom-weather.rainyDay,
+#custom-weather.rainyNight,
+#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyNight,
+#custom-weather.default {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+#custom-screenshot_t {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+#custom-spotify {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 3px 12px;
+}
+
+#tray {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+/* Module-specific colors (mapped to palette) */
+#cpu {
+  color: @maroon;
+  background-color: @crust;
+  padding: 6px;
+}
+
+#memory {
+  color: @yellow;
+  background-color: @crust;
+  padding: 6px;
+}
+
+#custom-power {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+#custom-storage {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+#custom-launcher {
+  background-color: @surface1;
+  color: @sapphire;
+  border-radius: 7.5px;
+  padding: 3px 6px;
+}
+
+/* Weather states mapped to accents */
+#custom-weather.severe {
+  color: @red;
+}
+
+#custom-weather.sunnyDay {
+  color: @peach;
+}
+
+#custom-weather.clearNight {
+  color: @text;
+}
+
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight {
+  color: @subtext1;
+}
+
+#custom-weather.rainyDay,
+#custom-weather.rainyNight {
+  color: @teal;
+}
+
+#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyNight {
+  color: @sky;
+}
+
+#custom-weather.default {
+  color: @subtext0;
+}
+
+/* Margins for first/last modules */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+/* Audio and others */
+#pulseaudio {
+  color: @sapphire;
+}
+
+#backlight {
+  color: @teal;
+}
+
+#clock {
+  color: @subtext1;
+}
+
+#battery {
+  color: @lavender;
+}
+
+#battery.charging,
+#battery.full,
+#battery.plugged {
+  color: @green;
+}
+#battery.warning:not(.charging) {
+  color: @yellow; /* or @peach / @maroon depending on your palette */
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(30, 34, 42, 0.5); /* can keep rgba or use @base with opacity */
+    color: @subtext0;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  background-color: #000000; /* could map to @mantle if desired */
+}
+
+/* Disk status color (choose an accent; original was brown) */
+#disk {
+  background-color: @peach;
+  color: @base; /* ensure contrast on peach background */
+}
+
+/* Bluetooth */
+#bluetooth {
+  color: @sapphire;
+}
+
+#bluetooth.disconnected {
+  color: @red;
+}
+
+/* Network */
+#network {
+  color: @mauve;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+/* Media blocks */
+#custom-media {
+  background-color: @green;
+  color: @base;
+  min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+  background-color: @green; /* keep green */
+}
+
+#custom-media.custom-vlc {
+  background-color: @peach;
+}
+
+#custom-pacman {
+  background-color: @crust;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+/* Temperature */
+#temperature {
+  background-color: @peach;
+  color: @base;
+}
+
+#temperature.critical {
+  background-color: @red;
+  color: @base;
+}
+
+/* Tray states */
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @red;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  background-color: @surface0;
+}
+
+#idle_inhibitor.activated {
+  background-color: @text;
+  color: @base;
+}
+
+/* Language and keyboard state */
+#language {
+  background: @teal;
+  color: @maroon;
+  padding: 0 0px;
+  margin: 0 5px;
+  min-width: 16px;
+}
+
+#keyboard-state {
+  background: @green;
+  color: @base; /* ensure readable text on green */
+  padding: 0 0px;
+  margin: 0 5px;
+  min-width: 16px;
+}
+
+#keyboard-state > label {
+  padding: 0 0px;
+}
+
+#keyboard-state > label.locked {
+  background: rgba(0, 0, 0, 0.2);
+}
