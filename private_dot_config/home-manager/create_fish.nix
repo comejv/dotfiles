@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.shell.enableFishIntegration = true;
+  programs.fzf.enableFishIntegration = true;
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -12,10 +14,11 @@
       set -gx pure_enable_nixdevshell true
       set -gx pure_enable_virtualenv true
       set fish_color_command blue
+      set -g fish_key_bindings fish_vi_key_bindings
     '';
     plugins = [
       {
-        name = "fzf";
+        name = "fzf-fish";
         src = pkgs.fishPlugins.fzf-fish.src;
       }
       {
@@ -34,6 +37,7 @@
         sudo sshfs -oallow_other "$pc.p:/users/eleves-b/2024/come.vincent" /mnt/X/ -F /home/comev/.ssh/config
       '';
     };
+
     shellAbbrs = {
       dotdot = {
         regex = ''^\.\.+$'';
@@ -41,11 +45,7 @@
       };
     };
     shellAliases = {
-      remapk = "sudo /home/vincec4/Documents/tools/remap.sh";
-      discordo = "discordo --token $(secret-tool lookup service discordo)";
       id = "/usr/bin/id";
     };
-    # shellInitLast = ''
-    # '';
   };
 }

@@ -30,6 +30,8 @@ in
   home.packages = with pkgs; [
     # Utilities
     nixgl.auto.nixGLDefault
+    fzf
+    fd
 
     # Nix
     nixfmt-rfc-style
