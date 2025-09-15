@@ -12,7 +12,7 @@ let
       mkdir -p $out/bin
       mkdir -p $out/share/applications
 
-      # Link the binary with a clean name, e.g., 'planify'
+      # Link the binary with a clean name, 'planify'
       ln -s $out/bin/io.github.alainm23.planify $out/bin/planify
       ln -s $out/bin/io.github.alainm23.planify.quick-add $out/bin/planify-quick-add
 
@@ -25,6 +25,8 @@ let
       rm $out/share/applications/io.github.alainm23.planify.desktop
     '';
   };
+  equibop-openasar = pkgs.callPackage ./equibop/equibop.nix { };
+
 in
 {
   home.packages = with pkgs; [
@@ -39,7 +41,6 @@ in
 
     planify-fixed
 
-    (discord.override { withOpenASAR = true; })
-    equicord
+    (discord.override { withOpenASAR = true; withVencord = true; })
   ];
 }
