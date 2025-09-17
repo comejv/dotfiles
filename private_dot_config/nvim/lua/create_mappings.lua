@@ -35,3 +35,7 @@ end, {})
 map("n", "<leader>ss", function()
   require("telescope.builtin").lsp_document_symbols()
 end, { desc = "Search Document Symbols" })
+
+map("n", "<leader>sr", function()
+  require("telescope.builtin").lsp_references()
+end, { desc = "Search References" })
