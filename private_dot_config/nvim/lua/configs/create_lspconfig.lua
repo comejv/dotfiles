@@ -77,3 +77,15 @@ end
 require("render-markdown").setup {
   completions = { lsp = { enabled = true } },
 }
+
+-- Rust (via rust-analyzer)
+if is_executable "rust-analyzer" then
+  lspconfig.rust_analyzer.setup {
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = { allFeatures = true },
+        procMacro = { enable = true },
+      },
+    },
+  }
+end

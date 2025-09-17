@@ -30,3 +30,8 @@ vim.keymap.set({ "n", "v" }, "<RightMouse>", function()
 
   require("menu").open(options, { mouse = true })
 end, {})
+
+-- Telescope LSP mappings
+map("n", "<leader>ss", function()
+  require("telescope.builtin").lsp_document_symbols()
+end, { desc = "Search Document Symbols" })
