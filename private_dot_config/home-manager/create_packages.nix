@@ -25,8 +25,6 @@ let
       rm $out/share/applications/io.github.alainm23.planify.desktop
     '';
   };
-  equibop-openasar = pkgs.callPackage ./equibop/equibop.nix { };
-
 in
 {
   home.packages = with pkgs; [
@@ -41,6 +39,9 @@ in
 
     planify-fixed
 
-    (discord.override { withOpenASAR = true; withVencord = true; })
+    (discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
   ];
 }
