@@ -85,7 +85,23 @@ if is_executable "rust-analyzer" then
       ["rust-analyzer"] = {
         cargo = { allFeatures = true },
         procMacro = { enable = true },
+        inlayHints = {
+          enable = true,
+          parameterHints = { enable = true },
+          typeHints = { enable = true },
+          chainingHints = { enable = true },
+          closingBraceHints = { enable = true },
+          lifetimeElisionHints = { enable = "skip_trivial" }, -- "always" | "never" | "skip_trivial"
+          reborrowHints = { enable = "always" },
+          renderColons = true,
+          maxLength = 50,
+        },
       },
     },
+    on_attach = function(client, bufnr)
+      if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+    end,
   }
 end
