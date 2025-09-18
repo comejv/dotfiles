@@ -20,11 +20,6 @@ if is_executable "pylsp" then
   lspconfig.pylsp.setup {}
 end
 
--- Check and set up `cmake`
-if is_executable "cmake-language-server" then
-  lspconfig.cmake.setup {}
-end
-
 -- Check and set up `texlab`
 if is_executable "texlab" then
   lspconfig.texlab.setup {
