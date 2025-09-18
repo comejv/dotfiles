@@ -1,6 +1,10 @@
-# Empty listen_addresses to use systemd socket activation
-listen_addresses = []
-server_names = ['NextDNS-8485f5', 'dns0', 'controld-block-malware-ad', 'adguard-dns', 'adguard-dns-doh','adguard-dns-ipv6', 'adfilter-adl-ipv6', 'quad9-dnscrypt-ip4-filter-pri', 'controld-block-malware-ad-social']
+# First activate dnscrypt-proxy.service
+# (not the dnscrypt-proxy.socket)
+
+listen_addresses = ['127.0.0.1:53', '[::1]:53']
+server_names = ['NextDNS-8485f5', 'dns0', 'controld-block-malware-ad', 'adguard-dns-doh', 'adfilter-adl-ipv6', 'quad9-dnscrypt-ip4-filter-pri', 'controld-block-malware-ad-social']
+
+forwarding_rules = '/etc/dnscrypt-proxy/forwarding-rules.txt'
 
 [query_log]
   file = '/var/log/dnscrypt-proxy/query.log'
@@ -18,4 +22,5 @@ server_names = ['NextDNS-8485f5', 'dns0', 'controld-block-malware-ad', 'adguard-
 
 [static]
   [static.'NextDNS-8485f5']
-  stamp = 'sdns://{STAMP}'
+  stamp = 'sdns://{stamp}'
+
