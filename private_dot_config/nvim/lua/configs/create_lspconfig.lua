@@ -1,28 +1,74 @@
-local lspconfig = require "lspconfig"
+-- Neovim v0.11+ native LSP configuration for NvChad starter
+-- Registers server configs via vim.lsp.config and enables them conditionally.
 
--- Helper function to check if an LSP server executable is available
 local function is_executable(name)
   return vim.fn.executable(name) == 1
 end
 
--- Check and set up `clangd`
+-- Shared on_attach to handle inlay hints (rust and others that support it)
+local function on_attach(client, bufnr)
+  if client.server_capabilities.inlayHintProvider then
+    -- Neovim 0.10+: vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    -- Neovim 0.11 renamed to: vim.lsp.inlay_hint(bufnr, true)
+    -- Try the new form, fall back to old if needed:
+    local ok_new = pcall(function()
+      vim.lsp.inlay_hint(bufnr, true)
+    end)
+    if not ok_new then
+      pcall(function()
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end)
+    end
+  end
+end
+
+-- Lua LS
+if is_executable "lua-language-server" then
+  vim.lsp.config("lua_ls", {
+    on_attach = on_attach,
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT" },
+        diagnostics = { globals = { "vim" } },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        telemetry = { enable = false },
+      },
+    },
+  })
+  vim.lsp.enable "lua_ls"
+end
+
+-- clangd
 if is_executable "clangd" then
-  lspconfig.clangd.setup {}
+  vim.lsp.config("clangd", {
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "clangd"
 end
 
--- Check and set up `cmake`
+-- cmake
 if is_executable "cmake-language-server" then
-  lspconfig.cmake.setup {}
+  vim.lsp.config("cmake", {
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "cmake"
 end
 
--- Check and set up `pylsp`
+-- pylsp
 if is_executable "pylsp" then
-  lspconfig.pylsp.setup {}
+  vim.lsp.config("pylsp", {
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "pylsp"
 end
 
--- Check and set up `texlab`
+-- texlab
 if is_executable "texlab" then
-  lspconfig.texlab.setup {
+  vim.lsp.config("texlab", {
+    on_attach = on_attach,
     settings = {
       texlab = {
         build = {
@@ -30,52 +76,30 @@ if is_executable "texlab" then
         },
       },
     },
-  }
+  })
+  vim.lsp.enable "texlab"
 end
 
--- Check and set up `ocamllsp`
+-- ocamllsp
 if is_executable "ocamllsp" then
-  lspconfig.ocamllsp.setup {}
+  vim.lsp.config("ocamllsp", {
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "ocamllsp"
 end
 
--- Check and set up `nixd`
+-- nixd
 if is_executable "nixd" then
-  lspconfig.nixd.setup {}
+  vim.lsp.config("nixd", {
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "nixd"
 end
 
-if is_executable "lua-language-server" then
-  lspconfig.lua_ls.setup {
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  }
-end
-
--- markdown
-require("render-markdown").setup {
-  completions = { lsp = { enabled = true } },
-}
-
--- Rust (via rust-analyzer)
+-- rust-analyzer
 if is_executable "rust-analyzer" then
-  lspconfig.rust_analyzer.setup {
+  vim.lsp.config("rust_analyzer", {
+    on_attach = on_attach,
     settings = {
       ["rust-analyzer"] = {
         cargo = { allFeatures = true },
@@ -86,17 +110,13 @@ if is_executable "rust-analyzer" then
           typeHints = { enable = true },
           chainingHints = { enable = true },
           closingBraceHints = { enable = true },
-          lifetimeElisionHints = { enable = "skip_trivial" }, -- "always" | "never" | "skip_trivial"
+          lifetimeElisionHints = { enable = "skip_trivial" },
           reborrowHints = { enable = "always" },
           renderColons = true,
           maxLength = 50,
         },
       },
     },
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end
-    end,
-  }
+  })
+  vim.lsp.enable "rust_analyzer"
 end
