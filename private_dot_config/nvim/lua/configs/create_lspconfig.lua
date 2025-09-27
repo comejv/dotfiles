@@ -2,7 +2,7 @@ local function is_executable(name)
   return vim.fn.executable(name) == 1
 end
 
--- Shared on_attach to handle inlay hints (rust and others that support it)
+-- Shared on_attach to handle inlay hints
 local function on_attach(client, bufnr)
   if client.server_capabilities.inlayHintProvider then
     local ok_new = pcall(function()
@@ -96,18 +96,51 @@ if is_executable "rust-analyzer" then
     on_attach = on_attach,
     settings = {
       ["rust-analyzer"] = {
-        cargo = { allFeatures = true },
+        cargo = {
+          allFeatures = true,
+          buildScripts = { enable = true },
+        },
         procMacro = { enable = true },
         inlayHints = {
           enable = true,
-          parameterHints = { enable = true },
-          typeHints = { enable = true },
-          chainingHints = { enable = true },
-          closingBraceHints = { enable = true },
-          lifetimeElisionHints = { enable = "skip_trivial" },
-          reborrowHints = { enable = "always" },
+          parameterHints = {
+            enable = false,
+          },
+          typeHints = {
+            enable = true,
+            hideFormatString = true,
+            hideClosureInitialization = false,
+            hideAwait = true,
+            maxLength = 50,
+          },
+          chainingHints = {
+            enable = true,
+          },
+          closingBraceHints = {
+            enable = true,
+            minLines = 10,
+          },
+          lifetimeElisionHints = {
+            enable = "skip_trivial",
+          },
+          reborrowHints = {
+            enable = "always",
+          },
           renderColons = true,
-          maxLength = 50,
+          maxLength = 80,
+          discriminantHints = {
+            enable = false,
+          },
+        },
+        check = {
+          command = "clippy",
+          allTargets = true,
+        },
+        imports = {
+          granularity = {
+            group = "module",
+          },
+          prefix = "self",
         },
       },
     },
