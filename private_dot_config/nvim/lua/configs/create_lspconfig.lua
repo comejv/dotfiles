@@ -1,6 +1,3 @@
--- Neovim v0.11+ native LSP configuration for NvChad starter
--- Registers server configs via vim.lsp.config and enables them conditionally.
-
 local function is_executable(name)
   return vim.fn.executable(name) == 1
 end
@@ -8,9 +5,6 @@ end
 -- Shared on_attach to handle inlay hints (rust and others that support it)
 local function on_attach(client, bufnr)
   if client.server_capabilities.inlayHintProvider then
-    -- Neovim 0.10+: vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    -- Neovim 0.11 renamed to: vim.lsp.inlay_hint(bufnr, true)
-    -- Try the new form, fall back to old if needed:
     local ok_new = pcall(function()
       vim.lsp.inlay_hint(bufnr, true)
     end)
