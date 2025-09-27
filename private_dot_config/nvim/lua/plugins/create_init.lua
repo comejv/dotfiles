@@ -77,14 +77,6 @@ return {
     },
   },
   {
-    "3rd/image.nvim",
-    ft = { "markdown" },
-    build = false,
-    opts = {
-      processor = "magick_cli",
-    },
-  },
-  {
     "supermaven-inc/supermaven-nvim",
     config = function()
       require("supermaven-nvim").setup {
