@@ -1,0 +1,4 @@
+Checks: >
+  clang-analyzer-*,-clang-analyzer-alpha*,
+  bugprone-*,cert-*,cppcoreguidelines-pro-bounds-*,
+  performance-*,readability-*,cppcoreguidelines-*,
