@@ -1,5 +1,5 @@
 {
-  description = "C development env: clangd, cmake-language-server, gcc, gdb";
+  description = "Python dev environment with pylsp and black";
 
   inputs = {
     nixpkgs.url = "nixpkgs";
@@ -16,18 +16,19 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
+        pyPkgs = pkgs.python313Packages;
       in
       {
+        # Dev shell with Python, pylsp, black
         devShells.default = pkgs.mkShell {
-          # Core tools requested
-          nativeBuildInputs = with pkgs; [
-            gcc
-            gdb
-            clang-tools
-            cmake-language-server
-            bear # compile commands generator
-          ];
+          packages = [
+            pkgs.python313
+            pkgs.virtualenv
 
+            # Language server and tools
+            pyPkgs.python-lsp-server
+            pyPkgs.black
+          ];
         };
       }
     );
