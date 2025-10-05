@@ -26,8 +26,8 @@
     ],
     "modules-center": [
         //"hyprland/window"
-        "clock",
-        "custom/weather"
+        "clock"
+        //"custom/weather"
         //"custom/gammastep"
     ],
     "modules-right": [
@@ -108,7 +108,7 @@
     },
 
     "battery": {
-        "interval": 2,
+        "interval": 60,
         "states": {
             "good": 95,
             "warning": 30,
