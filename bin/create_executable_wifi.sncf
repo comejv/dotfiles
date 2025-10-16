@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --------------------------------------------------------
+# setup-wifi-portal.sh
+# – Updates /etc/dnscrypt-proxy/forwarding-rules.txt to
+#   point wifi.sncf + *.sncf at your current gateway
+# – Reloads dnscrypt-proxy, verifies, and opens portal
+# Usage:
+#   sudo setup-wifi-portal.sh
+# --------------------------------------------------------
+
+RULES_FILE=/etc/dnscrypt-proxy/forwarding-rules.txt
+
+# 1) must be root
+if [ "$EUID" -ne 0 ]; then
+  echo "❗ Please run as root: sudo $0" >&2
+  exit 1
+fi
+
+# 2) detect default gateway
+GATEWAY=$(ip route | awk '/^default/ {print $3; exit}')
+if [ -z "$GATEWAY" ]; then
+  echo "❗ Could not detect default gateway." >&2
+  exit 1
+fi
+
+# 3) backup forwarding-rules.txt
+TS=$(date +%Y%m%d_%H%M%S)
+BACKUP="$RULES_FILE.$TS.bak"
+cp -v "$RULES_FILE" "$BACKUP"
+echo "✅ Backed up $RULES_FILE → $BACKUP"
+
+# 4) remove old wifi.sncf / *.sncf entries
+sed -i \
+  -e '/^\s*wifi\.sncf\s\+/d' \
+  -e '/^\s*\*\.sncf\s\+/d' \
+  "$RULES_FILE"
+echo "✅ Removed existing wifi.sncf/*.sncf rules"
+
+# 5) append fresh rules
+{
+  echo "wifi.sncf $GATEWAY:53"
+  echo "*.sncf    $GATEWAY:53"
+} >> "$RULES_FILE"
+echo "✅ Appended new rules pointing at $GATEWAY:53"
+
+# 6) reload dnscrypt-proxy
+systemctl reload dnscrypt-proxy
+echo "🔄 Reloaded dnscrypt-proxy"
+sleep 1
+
+# 7) verify resolution
+RES=$(dig @127.0.0.1 wifi.sncf +short)
+if [ -z "$RES" ]; then
+  echo "❗ Lookup failed; no answer for wifi.sncf"
+else
+  echo "✅ wifi.sncf resolves to $RES"
+fi
+
+# 8) open captive portal in default browser
+URL="http://wifi.sncf/"
+if command -v xdg-open &>/dev/null; then
+  USER=${SUDO_USER:-$USER}
+  echo "🌐 Opening $URL as $USER..."
+  sudo -u "$USER" xdg-open "$URL" &>/dev/null || \
+    echo "❗ Could not auto-open browser; please visit $URL"
+else
+  echo "🌐 Please open $URL in your browser to sign in."
+fi
+
+echo "🎉 All done. Sign in via the portal, then enjoy encrypted DNS again."
