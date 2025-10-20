@@ -5,7 +5,7 @@ set -euo pipefail
 # setup-wifi-portal.sh
 # – Updates /etc/dnscrypt-proxy/forwarding-rules.txt to
 #   point wifi.sncf + *.sncf at your current gateway
-# – Reloads dnscrypt-proxy, verifies, and opens portal
+# – Restarts dnscrypt-proxy, verifies, and opens portal
 # Usage:
 #   sudo setup-wifi-portal.sh
 # --------------------------------------------------------
@@ -42,12 +42,12 @@ echo "✅ Removed existing wifi.sncf/*.sncf rules"
 {
   echo "wifi.sncf $GATEWAY:53"
   echo "*.sncf    $GATEWAY:53"
-} >> "$RULES_FILE"
+} >>"$RULES_FILE"
 echo "✅ Appended new rules pointing at $GATEWAY:53"
 
-# 6) reload dnscrypt-proxy
-systemctl reload dnscrypt-proxy
-echo "🔄 Reloaded dnscrypt-proxy"
+# 6) restart dnscrypt-proxy
+systemctl restart dnscrypt-proxy
+echo "🔄 Restart dnscrypt-proxy"
 sleep 1
 
 # 7) verify resolution
@@ -63,7 +63,7 @@ URL="http://wifi.sncf/"
 if command -v xdg-open &>/dev/null; then
   USER=${SUDO_USER:-$USER}
   echo "🌐 Opening $URL as $USER..."
-  sudo -u "$USER" xdg-open "$URL" &>/dev/null || \
+  sudo -u "$USER" xdg-open "$URL" &>/dev/null ||
     echo "❗ Could not auto-open browser; please visit $URL"
 else
   echo "🌐 Please open $URL in your browser to sign in."
