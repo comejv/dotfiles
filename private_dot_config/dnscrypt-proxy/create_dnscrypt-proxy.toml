@@ -1,10 +1,9 @@
-# First activate dnscrypt-proxy.service
-# (not the dnscrypt-proxy.socket)
-
 listen_addresses = ['127.0.0.1:53', '[::1]:53']
 server_names = ['NextDNS-8485f5', 'dns0', 'controld-block-malware-ad', 'adguard-dns-doh', 'adfilter-adl-ipv6', 'quad9-dnscrypt-ip4-filter-pri', 'controld-block-malware-ad-social']
 
 forwarding_rules = '/etc/dnscrypt-proxy/forwarding-rules.txt'
+
+bootstrap_resolvers = ['9.9.9.9:53', '8.8.8.8:53', '1.1.1.1:53']
 
 [query_log]
   file = '/var/log/dnscrypt-proxy/query.log'
@@ -22,5 +21,5 @@ forwarding_rules = '/etc/dnscrypt-proxy/forwarding-rules.txt'
 
 [static]
   [static.'NextDNS-8485f5']
-  stamp = 'sdns://{stamp}'
+  stamp = 'sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HLzg0ODVmNQ'
 
