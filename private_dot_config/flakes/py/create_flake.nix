@@ -17,17 +17,22 @@
       let
         pkgs = import nixpkgs { inherit system; };
         pyPkgs = pkgs.python313Packages;
+        pythonEnv = pkgs.python313.withPackages (
+          ps: with ps; [
+            matplotlib
+            numpy
+            pandas
+            tabulate
+            black
+          ]
+        );
       in
       {
-        # Dev shell with Python, pylsp, black
         devShells.default = pkgs.mkShell {
           packages = [
-            pkgs.python313
+            pythonEnv
+            pkgs.pyright
             pkgs.virtualenv
-
-            # Language server and tools
-            pyPkgs.python-lsp-server
-            pyPkgs.black
           ];
         };
       }
