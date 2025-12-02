@@ -12,7 +12,7 @@ in
 {
   home.username = "comev";
   home.homeDirectory = "/home/comev";
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
   nixpkgs.config = {
     allowUnfree = true;
   };

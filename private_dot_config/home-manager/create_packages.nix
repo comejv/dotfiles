@@ -40,7 +40,7 @@ in
     planify-fixed
 
     (discord.override {
-      withOpenASAR = true;
+      # withOpenASAR = true;
       withVencord = true;
     })
   ];
