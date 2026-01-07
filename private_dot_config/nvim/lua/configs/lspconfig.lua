@@ -183,6 +183,9 @@ vim.lsp.config("jsonls", {
 vim.lsp.enable "jsonls"
 
 -- julials
+-- get the server path by running:
+-- julia -e 'using Pkg; Pkg.add("LanguageServer"); Pkg.add("SymbolServer")'
+-- julia -e 'print(Base.find_package("LanguageServer"))'
 local server_path = "/home/comev/Documents/verifnn/.julia/packages/LanguageServer/Fwm1f"
 vim.lsp.config("julials", {
   on_attach = on_attach,
