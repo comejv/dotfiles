@@ -22,6 +22,8 @@
       vimPlugins.nvim-treesitter-parsers.vim
       vimPlugins.nvim-treesitter-parsers.markdown
       vimPlugins.nvim-treesitter-parsers.python
+
+      tex-fmt
     ];
   };
 }
