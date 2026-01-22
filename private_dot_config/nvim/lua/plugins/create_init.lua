@@ -89,4 +89,22 @@ return {
     end,
     lazy = false,
   },
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    ft = "markdown",
+    opts = {
+      workspaces = {
+        {
+          name = "dungeon",
+          path = "~/Documents/dungeon/",
+        },
+      },
+      legacy_commands = false,
+      note_id_func = function(title)
+        return title
+      end,
+      ui = { enable = false },
+    },
+  },
 }
