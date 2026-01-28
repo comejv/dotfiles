@@ -37,6 +37,8 @@
       '';
 
       page."C-k" = "() => pager.load('ddg:')";
+      page.";" = "() => pager.nextBuffer()";
+      page."," = "() => pager.prevBuffer()";
 
       omnirule = {
         ddg = {

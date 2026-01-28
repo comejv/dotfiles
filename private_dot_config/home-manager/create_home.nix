@@ -35,6 +35,7 @@ in
     EDITOR = "vim";
     VISUAL = "vim";
     TERMINAL = "kitty";
+    PAGER = "less -FR";
   };
 
   home.file = {
