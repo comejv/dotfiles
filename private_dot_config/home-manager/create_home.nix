@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   nixgl-overlay = final: prev: {
     nixgl = (
@@ -19,6 +19,9 @@ in
 
   targets.genericLinux.enable = true;
   programs.home-manager.enable = true;
+
+  # Handle systemd services on non-NixOS
+  systemd.user.startServices = "sd-switch";
 
   nixpkgs.overlays = [ nixgl-overlay ];
   imports = [
@@ -84,5 +87,28 @@ in
           originalDesktopFile;
       force = true;
     };
+  };
+
+  # Automatic Theme Switching (8am Light, 6pm Dark)
+  systemd.user.services.toggle-theme = {
+    Unit = {
+      Description = "Switch between light and dark themes";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${config.home.homeDirectory}/.config/home-manager/scripts/toggle-theme.sh";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
+  systemd.user.timers.toggle-theme = {
+    Unit = { Description = "Automatic theme switching timer"; };
+    Timer = {
+      OnCalendar = [ "08:00:00" "18:00:00" ];
+      Persistent = true;
+    };
+    Install = { WantedBy = [ "timers.target" ]; };
   };
 }

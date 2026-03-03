@@ -22,14 +22,18 @@
       placement_strategy = "top-left";
       hide_window_decorations = true;
       shell = "fish";
-      include = "current-theme.conf";
+
+      # Remote Control (needed for live theme switching)
+      allow_remote_control = "yes";
+      listen_on = "unix:/tmp/kitty";
 
       # Window
       draw_minimal_borders = "yes";
-      background_opacity = "0.9";
+      background_opacity = "1.0";
       window_padding_width = "0";
       resize_in_steps = "no";
     };
+    extraConfig = "include current-theme.conf";
     keybindings = {
       "ctrl+shift+left" = "neighboring_window left";
       "ctrl+shift+right" = "neighboring_window right";
@@ -38,5 +42,15 @@
       "ctrl+shift+h" = "launch --stdin-source=@screen_scrollback nvim";
     };
   };
+
+  # Automatic Theme Switching
+  # Kitty will automatically use these files depending on the OS color scheme
+  xdg.configFile."kitty/light-theme.auto.conf".source =
+    "${pkgs.kitty-themes}/share/kitty-themes/themes/GitHub_Light.conf";
+  xdg.configFile."kitty/no-preference-theme.auto.conf".source =
+    "${pkgs.kitty-themes}/share/kitty-themes/themes/GitHub_Light.conf";
+  xdg.configFile."kitty/dark-theme.auto.conf".source =
+    "${pkgs.kitty-themes}/share/kitty-themes/themes/GitHub_Dark.conf";
+
   home.packages = [ pkgs.kitty.terminfo ];
 }
