@@ -29,7 +29,7 @@ require("lazy").setup({
 }, lazy_config)
 
 -- New filetypes
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.mly",
   command = "set filetype=yacc",
 })
@@ -47,6 +47,7 @@ end
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
+vim.opt.termguicolors = true
 
 require "nvchad.autocmds"
 
