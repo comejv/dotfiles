@@ -8,11 +8,72 @@ let
       }
     );
   };
+
+  toggle-theme-script = pkgs.writeShellScriptBin "toggle-theme" ''
+    # Robustly find DBUS_SESSION_BUS_ADDRESS if not set
+    if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+        export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+    fi
+
+    # Use system-native gsettings to ensure it talks to the right dconf session
+    GSETTINGS="/usr/bin/gsettings"
+    if [ ! -f "$GSETTINGS" ]; then
+        GSETTINGS="${pkgs.glib}/bin/gsettings"
+    fi
+
+    set_theme() {
+        local mode=$1
+        if [ "$mode" = "light" ]; then
+            echo "Setting light mode..."
+            $GSETTINGS set org.gnome.desktop.interface color-scheme 'prefer-light'
+        else
+            echo "Setting dark mode..."
+            $GSETTINGS set org.gnome.desktop.interface color-scheme 'prefer-dark'
+        fi
+    }
+
+    toggle_theme() {
+        # Get value and strip single quotes
+        current=$($GSETTINGS get org.gnome.desktop.interface color-scheme | tr -d "'")
+        if [ "$current" = "prefer-dark" ]; then
+            set_theme "light"
+        else
+            set_theme "dark"
+        fi
+    }
+
+    ACTION=''${1:-toggle}
+
+    case "$ACTION" in
+        light)
+            set_theme "light"
+            ;;
+        dark)
+            set_theme "dark"
+            ;;
+        toggle)
+            toggle_theme
+            ;;
+        auto)
+            # Time based auto behavior
+            hour=$(date +%H)
+            if [ "$hour" -ge 8 ] && [ "$hour" -lt 18 ]; then
+                set_theme "light"
+            else
+                set_theme "dark"
+            fi
+            ;;
+        *)
+            echo "Usage: toggle-theme [light|dark|toggle|auto]"
+            exit 1
+            ;;
+    esac
+  '';
 in
 {
   home.username = "comev";
   home.homeDirectory = "/home/comev";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -32,6 +93,10 @@ in
     ./nvim.nix
     ./aliases.nix
     ./kitty.nix
+  ];
+
+  home.packages = [
+    toggle-theme-script
   ];
 
   home.sessionVariables = {
@@ -57,35 +122,25 @@ in
         <dir>~/.nix-profile/share/fonts/</dir>
       </fontconfig>
     '';
-    ".local/share/applications/kitty.desktop" = {
-      text =
-        let
-          originalDesktopFile = builtins.readFile "${pkgs.kitty}/share/applications/kitty.desktop";
-        in
-        builtins.replaceStrings
-          [
-            "TryExec=kitty"
-            "Exec=kitty"
-          ]
-          [
-            ""
-            "Exec=nixGL kitty"
-          ]
-          originalDesktopFile;
-      force = true;
-    };
+  };
 
-    # Example for btop.desktop
-    ".local/share/applications/btop.desktop" = {
-      text =
-        let
-          originalDesktopFile = builtins.readFile "${pkgs.btop}/share/applications/btop.desktop";
-        in
-        builtins.replaceStrings
-          [ "Exec=btop" "Terminal=true" ]
-          [ "Exec=nixGL kitty -1 btop" "Terminal=false" ]
-          originalDesktopFile;
-      force = true;
+  xdg.desktopEntries = {
+    kitty = {
+      name = "kitty";
+      genericName = "Terminal emulator";
+      comment = "Fast, feature-rich, GPU based terminal emulator";
+      exec = "nixGL kitty";
+      icon = "kitty";
+      categories = [ "System" "TerminalEmulator" ];
+    };
+    btop = {
+      name = "btop";
+      genericName = "System Monitor";
+      comment = "Resource monitor that shows usage and stats";
+      exec = "nixGL kitty -1 btop";
+      icon = "btop";
+      terminal = false;
+      categories = [ "System" "Monitor" ];
     };
   };
 
@@ -96,7 +151,8 @@ in
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "${config.home.homeDirectory}/.config/home-manager/scripts/toggle-theme.sh";
+      # Use 'auto' action for the systemd timer
+      ExecStart = "${toggle-theme-script}/bin/toggle-theme auto";
     };
     Install = {
       WantedBy = [ "default.target" ];

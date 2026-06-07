@@ -5,12 +5,11 @@
     nixgl.auto.nixGLDefault
 
     # Nix
-    nixfmt-rfc-style
+    nixfmt
     nix-your-shell
 
     (discord.override {
       withOpenASAR = true;
-      withVencord = true;
     })
   ];
 
