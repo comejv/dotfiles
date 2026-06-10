@@ -3,6 +3,7 @@
 {
   programs.neovim = {
     enable = true;
+    sideloadInitLua = true;
     vimAlias = true;
     withPython3 = true;
     extraPackages = with pkgs; [
