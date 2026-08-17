@@ -1,0 +1,25 @@
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                    Animations Configuration                 ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# https://wiki.hyprland.org/Configuring/Animations/
+
+bezier = ease, 0.21, 0.00, 0.11, 1.03
+
+animations {
+    enabled = true
+    
+    # Windows
+    animation = windowsIn, 1, 4, ease, slide
+    animation = windowsOut, 1, 5, ease, popin 80%
+    
+    # Border
+    animation = border, 1, 5, default
+    
+    # Workspaces
+    animation = workspacesIn, 1, 6, ease, slide
+    animation = workspacesOut, 1, 6, ease, slide
+    
+    # Special workspace (scratchpad)
+    animation = specialWorkspace, 1, 4, ease, slide
+}
