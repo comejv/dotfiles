@@ -3,6 +3,8 @@
 {
   programs.neovim = {
     enable = true;
+    # Keep the NvChad configuration at ~/.config/nvim/init.lua unmanaged.
+    # Home Manager loads its generated provider setup through the wrapper.
     sideloadInitLua = true;
     vimAlias = true;
     withPython3 = true;
