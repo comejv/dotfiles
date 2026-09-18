@@ -107,6 +107,35 @@ in
   };
 
   home.file = {
+    ".taskrc".text = ''
+      data.location=~/.task
+    '';
+    ".local/bin/task-reminders" = {
+      text = ''
+        #!${pkgs.bash}/bin/bash
+        set -euo pipefail
+
+        task_bin="${pkgs.taskwarrior3}/bin/task"
+        zenity_bin="${pkgs.zenity}/bin/zenity"
+        count="$($task_bin rc.verbose=nothing status:pending due.before:tomorrow count)"
+
+        if [ "$count" -eq 0 ]; then
+          exit 0
+        fi
+
+        tasks="$($task_bin rc.verbose=nothing rc.color=off \
+          rc.report.next.columns=description,due \
+          rc.report.next.labels=Task,Due \
+          status:pending due.before:tomorrow next)"
+        escaped_tasks="$(printf '%s' "$tasks" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')"
+
+        "$zenity_bin" --warning \
+          --title="Task reminders" \
+          --text="<span font_desc='Sans 15'>$escaped_tasks</span>" \
+          --width=700
+      '';
+      executable = true;
+    };
     ".config/chezmoi/chezmoi.toml" = {
       text = ''
         [git]
@@ -142,6 +171,28 @@ in
       terminal = false;
       categories = [ "System" "Monitor" ];
     };
+  };
+
+  systemd.user.services.task-reminders = {
+    Unit = { Description = "Show due Taskwarrior tasks in a WSLg popup"; };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${config.home.homeDirectory}/.local/bin/task-reminders";
+      Environment = [
+        "DISPLAY=:0"
+        "WAYLAND_DISPLAY=wayland-0"
+        "XDG_RUNTIME_DIR=/run/user/1000"
+      ];
+    };
+  };
+
+  systemd.user.timers.task-reminders = {
+    Unit = { Description = "Check Taskwarrior reminders every morning"; };
+    Timer = {
+      OnCalendar = "*-*-* 09:00:00";
+      Persistent = true;
+    };
+    Install = { WantedBy = [ "timers.target" ]; };
   };
 
   # Automatic Theme Switching (8am Light, 6pm Dark)

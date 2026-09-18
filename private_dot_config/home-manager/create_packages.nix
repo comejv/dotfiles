@@ -7,6 +7,8 @@
     # Nix
     nixfmt
     nix-your-shell
+    taskwarrior3
+    zenity
 
     (discord.override {
       withOpenASAR = true;
