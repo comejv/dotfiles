@@ -117,7 +117,7 @@ in
 
         task_bin="${pkgs.taskwarrior3}/bin/task"
         zenity_bin="${pkgs.zenity}/bin/zenity"
-        count="$($task_bin rc.verbose=nothing status:pending due.before:tomorrow count)"
+        count="$($task_bin rc.verbose=nothing status:pending due.before:2days count)"
 
         if [ "$count" -eq 0 ]; then
           exit 0
@@ -126,7 +126,7 @@ in
         tasks="$($task_bin rc.verbose=nothing rc.color=off \
           rc.report.next.columns=description,due \
           rc.report.next.labels=Task,Due \
-          status:pending due.before:tomorrow next)"
+          status:pending due.before:2days next)"
         escaped_tasks="$(printf '%s' "$tasks" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')"
 
         "$zenity_bin" --warning \
