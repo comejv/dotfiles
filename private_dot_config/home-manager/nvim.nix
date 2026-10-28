@@ -3,8 +3,6 @@
 {
   programs.neovim = {
     enable = true;
-    # Keep the NvChad configuration at ~/.config/nvim/init.lua unmanaged.
-    # Home Manager loads its generated provider setup through the wrapper.
     sideloadInitLua = true;
     vimAlias = true;
     withPython3 = true;
@@ -18,6 +16,10 @@
       # Highlight
       tree-sitter
       nodejs
+
+      tex-fmt
+    ];
+    plugins = with pkgs; [
       vimPlugins.nvim-treesitter-parsers.lua
       vimPlugins.nvim-treesitter-parsers.bash
       vimPlugins.nvim-treesitter-parsers.c
@@ -25,8 +27,6 @@
       vimPlugins.nvim-treesitter-parsers.vim
       vimPlugins.nvim-treesitter-parsers.markdown
       vimPlugins.nvim-treesitter-parsers.python
-
-      tex-fmt
     ];
   };
 }
